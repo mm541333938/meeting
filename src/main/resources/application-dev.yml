@@ -1,0 +1,39 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/meeting?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  session:
+#    store-type: redis
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+# redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
+    timeout: 3000
+
+# 超时y一定要大于0
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.harman.meeting_management.entity # 注意：对应实体类的路径
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper: debug
