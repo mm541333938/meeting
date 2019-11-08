@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 public class LoginController extends HttpUtil {
 
-    @PostMapping("/meet/admin/login")
+    @PostMapping("/admin/login")
     public Map<String, Object> doLogin(@RequestParam("username") String userName,
                                        @RequestParam("password") String pwd) {
         Map<String, Object> map = new HashMap<>();
