@@ -31,7 +31,7 @@ public class RegisterController extends HttpUtil {
                                           @RequestParam("name") String name,
                                           @RequestParam("employee_id") String employee_id,
                                           @RequestParam("phone") String phone,
-                                          @RequestParam("depart") String depart) {
+                                          @RequestParam("department_id") Long departmentId) {
         Map<String, Object> map = new HashMap<>();
         // set User object
         User user = new User();
@@ -41,7 +41,7 @@ public class RegisterController extends HttpUtil {
         user.setPhone(phone);
         user.setStatus(1);
         user.setEmployeeId(employee_id);
-        user.setDepart(depart);
+        user.setDepartmentId(departmentId);
 
         try {
             // insert into mysql

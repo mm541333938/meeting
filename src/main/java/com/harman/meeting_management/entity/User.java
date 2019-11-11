@@ -1,5 +1,6 @@
 package com.harman.meeting_management.entity;
 
+import java.util.Date;
 
 public class User {
     private Long id;
@@ -10,17 +11,17 @@ public class User {
 
     private String phone;
 
-    private String preTime;
+    private Date preTime;
 
-    private String preIp;
+    private String preId;
 
     private Integer status;
 
     private String password;
 
-    private String depart;
-
     private String employeeId;
+
+    private Long departmentId;
 
     public Long getId() {
         return id;
@@ -54,28 +55,20 @@ public class User {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    /*public Date getPreTime() {
+    public Date getPreTime() {
         return preTime;
     }
 
     public void setPreTime(Date preTime) {
         this.preTime = preTime;
-    }*/
-
-    public String getPreTime() {
-        return preTime;
     }
 
-    public void setPreTime(String preTime) {
-        this.preTime = preTime;
+    public String getPreId() {
+        return preId;
     }
 
-    public String getPreIp() {
-        return preIp;
-    }
-
-    public void setPreIp(String preIp) {
-        this.preIp = preIp == null ? null : preIp.trim();
+    public void setPreId(String preId) {
+        this.preId = preId == null ? null : preId.trim();
     }
 
     public Integer getStatus() {
@@ -94,19 +87,19 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getDepart() {
-        return depart;
-    }
-
-    public void setDepart(String depart) {
-        this.depart = depart == null ? null : depart.trim();
-    }
-
     public String getEmployeeId() {
         return employeeId;
     }
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId == null ? null : employeeId.trim();
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 }
