@@ -87,13 +87,12 @@ public class RegisterController extends HttpUtil {
         User byEmployeeId = userService.findByEmployeeId(employee_id);
         if (byEmployeeId == null) {
             map.put("code", 200);
-            map.put("msg", "员工可用");
+            map.put("msg", "员工号可用");
         } else {
             map.put("code", 210);
-            map.put("msg", "员工已注册");
+            map.put("msg", "员工号已注册");
         }
         return map;
     }
-
 
 }
