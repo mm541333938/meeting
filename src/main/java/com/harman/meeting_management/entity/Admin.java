@@ -1,7 +1,9 @@
 package com.harman.meeting_management.entity;
 
-public class Admin {
-    private Integer id;
+import java.io.Serializable;
+
+public class Admin implements Serializable {
+    private Long id;
 
     private String userName;
 
@@ -9,11 +11,11 @@ public class Admin {
 
     private Integer identity;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

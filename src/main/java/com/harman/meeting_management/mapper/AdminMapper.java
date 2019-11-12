@@ -1,7 +1,9 @@
 package com.harman.meeting_management.mapper;
 
 import com.harman.meeting_management.entity.Admin;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AdminMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -15,5 +17,5 @@ public interface AdminMapper {
 
     int updateByPrimaryKey(Admin record);
 
-    Admin selectByName(String adminName);
+    Admin selectByName(String userName);
 }

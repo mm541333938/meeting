@@ -27,4 +27,8 @@ public class UserServiceImpl implements UserService {
     public User findByEmployeeId(String employeeId) {
         return userMapper.selectByEmployeeId(employeeId);
     }
+
+    public int modifyPre(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
 }
