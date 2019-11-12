@@ -1,6 +1,8 @@
 package com.harman.meeting_management.entity;
 
-public class Admin {
+import java.io.Serializable;
+
+public class Admin implements Serializable {
     private Long id;
 
     private String userName;

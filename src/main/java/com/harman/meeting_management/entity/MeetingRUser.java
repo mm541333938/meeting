@@ -1,6 +1,8 @@
 package com.harman.meeting_management.entity;
 
-public class MeetingRUser {
+import java.io.Serializable;
+
+public class MeetingRUser implements Serializable {
     private Long id;
 
     private Long meetingId;

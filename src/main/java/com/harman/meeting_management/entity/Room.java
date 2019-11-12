@@ -1,8 +1,9 @@
 package com.harman.meeting_management.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Room {
+public class Room implements Serializable {
     private Integer id;
 
     private Integer roomNum;
