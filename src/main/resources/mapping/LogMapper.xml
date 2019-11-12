@@ -1,150 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.harman.meeting_management.mapper.LogMapper">
-  <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Log">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="times" jdbcType="TIMESTAMP" property="times" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harman.meeting_management.entity.Log">
-    <result column="text" jdbcType="LONGVARCHAR" property="text" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, times
+    <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Log">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="times" jdbcType="TIMESTAMP" property="times"/>
+        <result column="text" jdbcType="LONGVARCHAR" property="text"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, times, text
   </sql>
-  <sql id="Blob_Column_List">
-    text
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from log
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from log
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.harman.meeting_management.entity.Log">
+    <insert id="insert" parameterType="com.harman.meeting_management.entity.Log">
     insert into log (id, times, text
       )
     values (#{id,jdbcType=BIGINT}, #{times,jdbcType=TIMESTAMP}, #{text,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Log">
-    insert into log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="times != null">
-        times,
-      </if>
-      <if test="text != null">
-        text,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="times != null">
-        #{times,jdbcType=TIMESTAMP},
-      </if>
-      <if test="text != null">
-        #{text,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Log">
-    update log
-    <set>
-      <if test="times != null">
-        times = #{times,jdbcType=TIMESTAMP},
-      </if>
-      <if test="text != null">
-        text = #{text,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harman.meeting_management.entity.Log">
-    update log
-    set times = #{times,jdbcType=TIMESTAMP},
-      text = #{text,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Log">
+    <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Log">
+        insert into log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="times != null">
+                times,
+            </if>
+            <if test="text != null">
+                text,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="times != null">
+                #{times,jdbcType=TIMESTAMP},
+            </if>
+            <if test="text != null">
+                #{text,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Log">
+        update log
+        <set>
+            <if test="times != null">
+                times = #{times,jdbcType=TIMESTAMP},
+            </if>
+            <if test="text != null">
+                text = #{text,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Log">
     update log
     set times = #{times,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Log">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="text" jdbcType="VARCHAR" property="text" />
-    <result column="times" jdbcType="VARCHAR" property="times" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, text, times
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from log
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.harman.meeting_management.entity.Log">
-    insert into log (id, text, times
-      )
-    values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{times,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Log">
-    insert into log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="text != null">
-        text,
-      </if>
-      <if test="times != null">
-        times,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="text != null">
-        #{text,jdbcType=VARCHAR},
-      </if>
-      <if test="times != null">
-        #{times,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Log">
-    update log
-    <set>
-      <if test="text != null">
-        text = #{text,jdbcType=VARCHAR},
-      </if>
-      <if test="times != null">
-        times = #{times,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Log">
-    update log
-    set text = #{text,jdbcType=VARCHAR},
-      times = #{times,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <!--  <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Log">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="text" jdbcType="LONGVARCHAR" property="text" />
+        <result column="times" jdbcType="VARCHAR" property="times" />
+      </resultMap>
+      <sql id="Base_Column_List">
+        id, text, times
+      </sql>
+      <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from log
+        where id = #{id,jdbcType=INTEGER}
+      </select>
+      <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from log
+        where id = #{id,jdbcType=INTEGER}
+      </delete>
+      <insert id="insert" parameterType="com.harman.meeting_management.entity.Log">
+        insert into log (id, text, times
+          )
+        values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{times,jdbcType=VARCHAR}
+          )
+      </insert>
+      <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Log">
+        insert into log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="id != null">
+            id,
+          </if>
+          <if test="text != null">
+            text,
+          </if>
+          <if test="times != null">
+            times,
+          </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+          <if test="id != null">
+            #{id,jdbcType=INTEGER},
+          </if>
+          <if test="text != null">
+            #{text,jdbcType=VARCHAR},
+          </if>
+          <if test="times != null">
+            #{times,jdbcType=VARCHAR},
+          </if>
+        </trim>
+      </insert>
+      <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Log">
+        update log
+        <set>
+          <if test="text != null">
+            text = #{text,jdbcType=VARCHAR},
+          </if>
+          <if test="times != null">
+            times = #{times,jdbcType=VARCHAR},
+          </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+      </update>
+      <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Log">
+        update log
+        set text = #{text,jdbcType=VARCHAR},
+          times = #{times,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+      </update>-->
 </mapper>

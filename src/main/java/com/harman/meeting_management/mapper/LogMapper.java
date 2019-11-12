@@ -13,7 +13,5 @@ public interface LogMapper {
 
     int updateByPrimaryKeySelective(Log record);
 
-    int updateByPrimaryKeyWithBLOBs(Log record);
-
     int updateByPrimaryKey(Log record);
 }

@@ -20,9 +20,9 @@ import java.util.Map;
 
 @RestController
 public class LoginController extends HttpUtil {
+
     @Autowired
     private AdminService adminService;
-
     // admin account sign in
     @PostMapping("/admin/login")
     public Map<String, Object> doAdminLogin(@RequestParam("username") String userName,

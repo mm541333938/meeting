@@ -1,7 +1,9 @@
 package com.harman.meeting_management.mapper;
 
 import com.harman.meeting_management.entity.Department;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface DepartmentMapper {
     int deleteByPrimaryKey(Long id);
 
