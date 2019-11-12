@@ -31,4 +31,12 @@ public interface UserService {
      */
     public User findByEmployeeId(String employeeId);
 
+    /**
+     * 修改登陆时间和ip登录
+     *
+     * @param user
+     * @return
+     */
+    public int modifyPre(User user);
+
 }

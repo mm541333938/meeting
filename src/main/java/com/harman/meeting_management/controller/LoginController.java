@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class LoginController extends HttpUtil {
 
     @Autowired
     private AdminService adminService;
+
     // admin account sign in
     @PostMapping("/admin/login")
     public Map<String, Object> doAdminLogin(@RequestParam("username") String userName,
@@ -49,17 +51,29 @@ public class LoginController extends HttpUtil {
     public Map<String, Object> doLogin(@RequestParam("user_name") String userName,
                                        @RequestParam("password") String password) {
         Map<String, Object> map = new HashMap<>();
-
+        User user = new User();
         //TODO 可用多线程
         User byEmployeeId = userService.findByEmployeeId(userName);
         User byEmail = userService.findByEmail(userName);
         //-----------------------------------------------------------
-        if (byEmail != null || byEmployeeId != null){
-            map.put("code",200);
-            map.put("msg","登录成功");
+        if (byEmail != null || byEmployeeId != null) {
+            String pwd = byEmail == null ? byEmployeeId.getPassword() : byEmail.getPassword();
+            if (pwd.trim().equals(password.trim())) {
+
+                map.put("code", 200);
+                map.put("msg", "登录成功");
+                map.put("preTime", byEmail == null ? byEmployeeId.getPreTime() : byEmail.getPreTime());
+                map.put("preIp", byEmail == null ? byEmployeeId.getpreIp() : byEmail.getpreIp());
+                //登录成功之后更新数据
+                user.setPreTime(new Date());
+                user.setpreIp(getClientIpAddress());
+                user.setId(byEmail == null ? byEmployeeId.getId() : byEmail.getId());
+
+                userService.modifyPre(user);
+            }
         } else {
-            map.put("code",210);
-            map.put("msg","账号未注册");
+            map.put("code", 210);
+            map.put("msg", "账号未注册");
         }
         return map;
     }

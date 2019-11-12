@@ -13,7 +13,7 @@ public class User {
 
     private Date preTime;
 
-    private String preId;
+    private String preIp;
 
     private Integer status;
 
@@ -63,12 +63,12 @@ public class User {
         this.preTime = preTime;
     }
 
-    public String getPreId() {
-        return preId;
+    public String getpreIp() {
+        return preIp;
     }
 
-    public void setPreId(String preId) {
-        this.preId = preId == null ? null : preId.trim();
+    public void setpreIp(String preIp) {
+        this.preIp = preIp == null ? null : preIp.trim();
     }
 
     public Integer getStatus() {

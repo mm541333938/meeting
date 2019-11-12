@@ -7,14 +7,14 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="pre_time" property="preTime" jdbcType="TIMESTAMP" />
-    <result column="pre_id" property="preId" jdbcType="VARCHAR" />
+    <result column="pre_ip" property="preIp" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="employee_id" property="employeeId" jdbcType="VARCHAR" />
     <result column="department_id" property="departmentId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, email, phone, pre_time, pre_id, status, password, employee_id, department_id
+    id, name, email, phone, pre_time, pre_ip, status, password, employee_id, department_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -38,11 +38,11 @@
   </delete>
   <insert id="insert" parameterType="com.harman.meeting_management.entity.User" >
     insert into m_user (id, name, email, 
-      phone, pre_time, pre_id, 
+      phone, pre_time, pre_ip, 
       status, password, employee_id, 
       department_id)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{preTime,jdbcType=TIMESTAMP}, #{preId,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{preTime,jdbcType=TIMESTAMP}, #{preIp,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{employeeId,jdbcType=VARCHAR}, 
       #{departmentId,jdbcType=BIGINT})
   </insert>
@@ -64,8 +64,8 @@
       <if test="preTime != null" >
         pre_time,
       </if>
-      <if test="preId != null" >
-        pre_id,
+      <if test="preIp != null" >
+        pre_ip,
       </if>
       <if test="status != null" >
         status,
@@ -96,8 +96,8 @@
       <if test="preTime != null" >
         #{preTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="preId != null" >
-        #{preId,jdbcType=VARCHAR},
+      <if test="preIp != null" >
+        #{preIp,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -128,8 +128,8 @@
       <if test="preTime != null" >
         pre_time = #{preTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="preId != null" >
-        pre_id = #{preId,jdbcType=VARCHAR},
+      <if test="preIp != null" >
+        pre_ip = #{preIp,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -152,7 +152,7 @@
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       pre_time = #{preTime,jdbcType=TIMESTAMP},
-      pre_id = #{preId,jdbcType=VARCHAR},
+      pre_ip = #{preIp,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       password = #{password,jdbcType=VARCHAR},
       employee_id = #{employeeId,jdbcType=VARCHAR},
