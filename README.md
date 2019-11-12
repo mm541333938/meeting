@@ -93,6 +93,62 @@
          "code": 210
       }
       ```  
+* 更新部门操作
+* req:
+    * url: /admin/modifyDepartment
+    * method: get
+    * param department_id, departName
+* res:
+    * ```
+      {
+          "msg": "修改成功",
+          "code": 200
+      }
+      
+      {
+          "msg": "修改失败",
+          "code": 210
+      }
+      ```
+* all部门信息
+* req:
+    * url: /department
+    * method: get
+    * ```
+      {
+          "msg": [
+              {
+                  "id": 1,
+                  "name": "测试部"
+              },
+              {
+                  "id": 2,
+                  "name": "开发部"
+              },
+              {
+                  "id": 3,
+                  "name": "研发部"
+              },
+              {
+                  "id": 4,
+                  "name": "行政部"
+              },
+              {
+                  "id": 5,
+                  "name": "财务部"
+              }
+          ],
+          "code": 200
+      }
+      ```    
+* res: 
+    * ```
+      {
+          "msg": "没有部门数据",
+          "code": 210
+      }
+      ```
+    
 
         
    
