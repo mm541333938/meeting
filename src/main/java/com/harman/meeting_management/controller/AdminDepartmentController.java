@@ -56,9 +56,16 @@ public class AdminDepartmentController {
     }
 
     @DeleteMapping("/admin/deleteDepartment")
-    public Map<String, Object> doDeleteDepartment(@RequestParam("department_id") String id) {
+    public Map<String, Object> doDeleteDepartment(@RequestParam("department_id") Long id) {
         Map<String, Object> map = new HashMap<>();
-
+        int i = departmentService.deleteById(id);
+        if (i == 1) {
+            map.put("code", 200);
+            map.put("msg", "删除成功");
+        } else {
+            map.put("code", 210);
+            map.put("msg", "删除失败");
+        }
         return map;
     }
 
@@ -75,6 +82,5 @@ public class AdminDepartmentController {
         }
         return map;
     }
-
 
 }

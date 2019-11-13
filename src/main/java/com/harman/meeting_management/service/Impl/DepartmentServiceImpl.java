@@ -25,12 +25,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentMapper.updateByPrimaryKeySelective(department);
     }
 
-    @Override
     public int deleteById(Long id) {
         return departmentMapper.deleteByPrimaryKey(id);
     }
 
-    @Override
     public List<Department> findAll() {
         return departmentMapper.select();
     }

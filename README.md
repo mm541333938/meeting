@@ -148,6 +148,25 @@
           "code": 210
       }
       ```
+* 删除部门
+* req:
+    * url: /admin/deleteDepartment
+    * method: delete
+    * param: department_id
+* res: 
+    * ```
+        {
+            "msg": "删除成功",
+            "code": 200
+        }
+      
+        {
+            "msg": "删除失败",
+            "code": 210
+        }
+      ```
+      
+
     
 ## 会议室列表显示
 
