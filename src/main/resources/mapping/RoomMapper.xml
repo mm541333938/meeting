@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.harman.meeting_management.mapper.RoomMapper" >
-  <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Room" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="room_num" property="roomNum" jdbcType="VARCHAR" />
-    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
-    <result column="capacity" property="capacity" jdbcType="INTEGER" />
-    <result column="area" property="area" jdbcType="DECIMAL" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="discription" property="discription" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.harman.meeting_management.mapper.RoomMapper">
+    <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Room">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="room_num" property="roomNum" jdbcType="VARCHAR"/>
+        <result column="room_name" property="roomName" jdbcType="VARCHAR"/>
+        <result column="capacity" property="capacity" jdbcType="INTEGER"/>
+        <result column="area" property="area" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="discription" property="discription" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, room_num, room_name, capacity, area, status, discription
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from m_room
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="select" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List"/>
+        from m_room
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from m_room
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.harman.meeting_management.entity.Room" >
+    <insert id="insert" parameterType="com.harman.meeting_management.entity.Room">
     insert into m_room (id, room_num, room_name, 
       capacity, area, status, 
       discription)
@@ -31,80 +30,80 @@
       #{capacity,jdbcType=INTEGER}, #{area,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, 
       #{discription,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Room" >
-    insert into m_room
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="roomNum != null" >
-        room_num,
-      </if>
-      <if test="roomName != null" >
-        room_name,
-      </if>
-      <if test="capacity != null" >
-        capacity,
-      </if>
-      <if test="area != null" >
-        area,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="discription != null" >
-        discription,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="roomNum != null" >
-        #{roomNum,jdbcType=VARCHAR},
-      </if>
-      <if test="roomName != null" >
-        #{roomName,jdbcType=VARCHAR},
-      </if>
-      <if test="capacity != null" >
-        #{capacity,jdbcType=INTEGER},
-      </if>
-      <if test="area != null" >
-        #{area,jdbcType=DECIMAL},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="discription != null" >
-        #{discription,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Room" >
-    update m_room
-    <set >
-      <if test="roomNum != null" >
-        room_num = #{roomNum,jdbcType=VARCHAR},
-      </if>
-      <if test="roomName != null" >
-        room_name = #{roomName,jdbcType=VARCHAR},
-      </if>
-      <if test="capacity != null" >
-        capacity = #{capacity,jdbcType=INTEGER},
-      </if>
-      <if test="area != null" >
-        area = #{area,jdbcType=DECIMAL},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="discription != null" >
-        discription = #{discription,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Room" >
+    <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Room">
+        insert into m_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roomNum != null">
+                room_num,
+            </if>
+            <if test="roomName != null">
+                room_name,
+            </if>
+            <if test="capacity != null">
+                capacity,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="discription != null">
+                discription,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="roomNum != null">
+                #{roomNum,jdbcType=VARCHAR},
+            </if>
+            <if test="roomName != null">
+                #{roomName,jdbcType=VARCHAR},
+            </if>
+            <if test="capacity != null">
+                #{capacity,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="discription != null">
+                #{discription,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Room">
+        update m_room
+        <set>
+            <if test="roomNum != null">
+                room_num = #{roomNum,jdbcType=VARCHAR},
+            </if>
+            <if test="roomName != null">
+                room_name = #{roomName,jdbcType=VARCHAR},
+            </if>
+            <if test="capacity != null">
+                capacity = #{capacity,jdbcType=INTEGER},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="discription != null">
+                discription = #{discription,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Room">
     update m_room
     set room_num = #{roomNum,jdbcType=VARCHAR},
       room_name = #{roomName,jdbcType=VARCHAR},

@@ -6,16 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author L.Willian
  * @date 11/13/2019 2:14 PM
  */
+@RestController
 public class AdminRoomController {
 
     @Autowired
@@ -52,6 +55,21 @@ public class AdminRoomController {
                 map.put("error", cause.getMessage());
                 map.put("msg", "添加失败，房间已被添加，具体请联系管理员");
             }
+        }
+        return map;
+    }
+
+
+    @GetMapping("/roomAll")
+    public Map<String, Object> doFindAllRoom() {
+        Map<String, Object> map = new HashMap<>();
+        List<Room> roomList = roomService.findAll();
+        if (roomList == null || roomList.size() == 0) {
+            map.put("code", 210);
+            map.put("msg", "没有数据");
+        } else {
+            map.put("code", 200);
+            map.put("msg", roomList);
         }
         return map;
     }

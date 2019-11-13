@@ -3,6 +3,8 @@ package com.harman.meeting_management.service;
 import com.harman.meeting_management.entity.Room;
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
+
 /**
  * @author L.Willian
  * @date 11/11/2019 4:06 PM
@@ -17,5 +19,7 @@ public interface RoomService {
      * @throws DataAccessException
      */
     public int addRoom(Room roomDto);
+
+    public List<Room> findAll();
 
 }
