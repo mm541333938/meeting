@@ -1,6 +1,7 @@
 package com.harman.meeting_management.service;
 
 import com.harman.meeting_management.entity.User;
+import org.springframework.dao.DataAccessException;
 
 /**
  * @author L.Willian

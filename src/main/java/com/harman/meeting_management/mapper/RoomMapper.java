@@ -1,15 +1,16 @@
 package com.harman.meeting_management.mapper;
 
 import com.harman.meeting_management.entity.Room;
+import org.springframework.dao.DataAccessException;
 
 public interface RoomMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
-    int insert(Room record);
+    int insert(Room record) throws DataAccessException;
 
-    int insertSelective(Room record);
+    int insertSelective(Room record) throws DataAccessException;
 
-    Room selectByPrimaryKey(Integer id);
+    Room selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(Room record);
 

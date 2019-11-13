@@ -1,117 +1,116 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.harman.meeting_management.mapper.RoomMapper">
-  <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Room">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="room_num" jdbcType="INTEGER" property="roomNum" />
-    <result column="room_type" jdbcType="VARCHAR" property="roomType" />
-    <result column="room_money" jdbcType="VARCHAR" property="roomMoney" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="room_status" jdbcType="INTEGER" property="roomStatus" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.harman.meeting_management.mapper.RoomMapper" >
+  <resultMap id="BaseResultMap" type="com.harman.meeting_management.entity.Room" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="room_num" property="roomNum" jdbcType="VARCHAR" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="capacity" property="capacity" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="discription" property="discription" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, room_num, room_type, room_money, create_time, update_time, room_status
+  <sql id="Base_Column_List" >
+    id, room_num, room_name, capacity, area, status, discription
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from room
-    where id = #{id,jdbcType=INTEGER}
+    from m_room
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from room
-    where id = #{id,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from m_room
+    where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.harman.meeting_management.entity.Room">
-    insert into room (id, room_num, room_type, 
-      room_money, create_time, update_time, 
-      room_status)
-    values (#{id,jdbcType=INTEGER}, #{roomNum,jdbcType=INTEGER}, #{roomType,jdbcType=VARCHAR}, 
-      #{roomMoney,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{roomStatus,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.harman.meeting_management.entity.Room" >
+    insert into m_room (id, room_num, room_name, 
+      capacity, area, status, 
+      discription)
+    values (#{id,jdbcType=BIGINT}, #{roomNum,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=INTEGER}, #{area,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, 
+      #{discription,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Room">
-    insert into room
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+  <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Room" >
+    insert into m_room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="roomNum != null">
+      <if test="roomNum != null" >
         room_num,
       </if>
-      <if test="roomType != null">
-        room_type,
+      <if test="roomName != null" >
+        room_name,
       </if>
-      <if test="roomMoney != null">
-        room_money,
+      <if test="capacity != null" >
+        capacity,
       </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="area != null" >
+        area,
       </if>
-      <if test="updateTime != null">
-        update_time,
+      <if test="status != null" >
+        status,
       </if>
-      <if test="roomStatus != null">
-        room_status,
+      <if test="discription != null" >
+        discription,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
       </if>
-      <if test="roomNum != null">
-        #{roomNum,jdbcType=INTEGER},
+      <if test="roomNum != null" >
+        #{roomNum,jdbcType=VARCHAR},
       </if>
-      <if test="roomType != null">
-        #{roomType,jdbcType=VARCHAR},
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
       </if>
-      <if test="roomMoney != null">
-        #{roomMoney,jdbcType=VARCHAR},
+      <if test="capacity != null" >
+        #{capacity,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="area != null" >
+        #{area,jdbcType=DECIMAL},
       </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
-      <if test="roomStatus != null">
-        #{roomStatus,jdbcType=INTEGER},
+      <if test="discription != null" >
+        #{discription,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Room">
-    update room
-    <set>
-      <if test="roomNum != null">
-        room_num = #{roomNum,jdbcType=INTEGER},
+  <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Room" >
+    update m_room
+    <set >
+      <if test="roomNum != null" >
+        room_num = #{roomNum,jdbcType=VARCHAR},
       </if>
-      <if test="roomType != null">
-        room_type = #{roomType,jdbcType=VARCHAR},
+      <if test="roomName != null" >
+        room_name = #{roomName,jdbcType=VARCHAR},
       </if>
-      <if test="roomMoney != null">
-        room_money = #{roomMoney,jdbcType=VARCHAR},
+      <if test="capacity != null" >
+        capacity = #{capacity,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+      <if test="area != null" >
+        area = #{area,jdbcType=DECIMAL},
       </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="roomStatus != null">
-        room_status = #{roomStatus,jdbcType=INTEGER},
+      <if test="discription != null" >
+        discription = #{discription,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Room">
-    update room
-    set room_num = #{roomNum,jdbcType=INTEGER},
-      room_type = #{roomType,jdbcType=VARCHAR},
-      room_money = #{roomMoney,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      room_status = #{roomStatus,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.harman.meeting_management.entity.Room" >
+    update m_room
+    set room_num = #{roomNum,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
+      area = #{area,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

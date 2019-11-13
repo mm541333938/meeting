@@ -1,76 +1,75 @@
 package com.harman.meeting_management.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
 
-public class Room implements Serializable {
-    private Integer id;
+public class Room {
+    private Long id;
 
-    private Integer roomNum;
+    private String roomNum;
 
-    private String roomType;
+    private String roomName;
 
-    private String roomMoney;
+    private Integer capacity;
 
-    private Date createTime;
+    private BigDecimal area;
 
-    private Date updateTime;
+    private Integer status;
 
-    private Integer roomStatus;
+    private String discription;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getRoomNum() {
+    public String getRoomNum() {
         return roomNum;
     }
 
-    public void setRoomNum(Integer roomNum) {
-        this.roomNum = roomNum;
+    public void setRoomNum(String roomNum) {
+        this.roomNum = roomNum == null ? null : roomNum.trim();
     }
 
-    public String getRoomType() {
-        return roomType;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setRoomType(String roomType) {
-        this.roomType = roomType == null ? null : roomType.trim();
+    public void setRoomName(String roomName) {
+        this.roomName = roomName == null ? null : roomName.trim();
     }
 
-    public String getRoomMoney() {
-        return roomMoney;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public void setRoomMoney(String roomMoney) {
-        this.roomMoney = roomMoney == null ? null : roomMoney.trim();
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public BigDecimal getArea() {
+        return area;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setArea(BigDecimal area) {
+        this.area = area;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public Integer getRoomStatus() {
-        return roomStatus;
+    public String getDiscription() {
+        return discription;
     }
 
-    public void setRoomStatus(Integer roomStatus) {
-        this.roomStatus = roomStatus;
+    public void setDiscription(String discription) {
+        this.discription = discription == null ? null : discription.trim();
     }
 }
