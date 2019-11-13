@@ -74,4 +74,17 @@ public class AdminRoomController {
         return map;
     }
 
+    @GetMapping("/admin/modifyRoomInfo")
+    public Map<String, Object> doModifyRoom(@RequestParam("roomId") Long roomId,
+                                            @RequestParam("roomName") String roomName,
+                                            @RequestParam("capacity") Integer personNum,
+                                            @RequestParam("area") BigDecimal area,
+                                            @RequestParam("status") Integer status,
+                                            @RequestParam("discription") String discription) {
+        Map<String, Object> map = new HashMap<>();
+
+
+        return map;
+    }
+
 }

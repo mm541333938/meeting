@@ -165,7 +165,22 @@
             "code": 210
         }
       ```
-      
+-----------------------------------------------------------------  
+### 会议室房间相关
+* 添加房间req:
+    * url: /admin/addRoom
+    * method: get
+    * param: roomNum, roomName, capacity, area, discription
+* 所有会议室房间信息:req:
+    * url: /roomAll
+    * method: get
+   
+* 修改指定会议室信息:req:
+    * url: /admin/modifyRoomInfo
+    * method: get
+    * param: roomId roomName capacity area status discription
+
+
 
     
 ## 会议室列表显示
