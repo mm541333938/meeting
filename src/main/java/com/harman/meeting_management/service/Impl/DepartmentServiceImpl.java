@@ -4,6 +4,7 @@ import com.harman.meeting_management.entity.Department;
 import com.harman.meeting_management.mapper.DepartmentMapper;
 import com.harman.meeting_management.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     public DepartmentMapper departmentMapper;
 
-    public int addDepartment(Department department) {
+    public int addDepartment(Department department) throws DataAccessException {
         return departmentMapper.insert(department);
     }
 

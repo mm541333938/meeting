@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author L.Willian
@@ -28,5 +29,13 @@ public class RoomServiceImpl implements RoomService {
 
     public int modifyRoomInfo(Room roomDto) {
         return roomMapper.updateByPrimaryKeySelective(roomDto);
+    }
+
+    public int deleteByRoomId(Long roomId) {
+        return roomMapper.deleteByPrimaryKey(roomId);
+    }
+
+    public List<Map<String, Object>> findRoomInfoAble() {
+        return roomMapper.selectRoomAble();
     }
 }

@@ -1,6 +1,7 @@
 package com.harman.meeting_management.mapper;
 
 import com.harman.meeting_management.entity.Department;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,9 +10,9 @@ import java.util.List;
 public interface DepartmentMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(Department record);
+    int insert(Department record) throws DataAccessException;
 
-    int insertSelective(Department record);
+    int insertSelective(Department record) throws DataAccessException;
 
     Department selectByPrimaryKey(Long id);
 

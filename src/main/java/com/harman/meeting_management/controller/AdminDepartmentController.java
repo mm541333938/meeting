@@ -3,8 +3,10 @@ package com.harman.meeting_management.controller;
 import com.harman.meeting_management.entity.Department;
 import com.harman.meeting_management.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +27,24 @@ public class AdminDepartmentController {
         Map<String, Object> map = new HashMap<>();
         Department department = new Department();
         department.setName(departName);
-        int i = departmentService.addDepartment(department);
-        if (i == 1) {
-            map.put("code", 200);
-            map.put("msg", "添加成功");
-        } else {
-            map.put("code", 210);
-            map.put("msg", "添加失败");
+        try {
+            int i = departmentService.addDepartment(department);
+            if (i == 1) {
+                map.put("code", 200);
+                map.put("msg", "添加成功");
+            } else {
+                map.put("code", 210);
+                map.put("msg", "添加失败");
+            }
+        } catch (DataAccessException e) {
+            // catch mybatis throws exception
+            Throwable cause = e.getCause();
+            // Determine if it is the only constraint
+            if (cause instanceof SQLIntegrityConstraintViolationException) {
+                map.put("code", 210);
+                map.put("error", cause.getMessage());
+                map.put("msg", "添加失败，部门名称已存在");
+            }
         }
         return map;
     }

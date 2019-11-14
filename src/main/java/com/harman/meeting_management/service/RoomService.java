@@ -4,6 +4,7 @@ import com.harman.meeting_management.entity.Room;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author L.Willian
@@ -42,5 +43,12 @@ public interface RoomService {
      * @return
      */
     public int deleteByRoomId(Long roomId);
+
+    /**
+     * 查询status = 0 可用会议室的房间名字和id
+     *
+     * @return
+     */
+    public List<Map<String, Object>> findRoomInfoAble();
 
 }

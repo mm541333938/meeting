@@ -13,11 +13,15 @@
     <sql id="Base_Column_List">
     id, room_num, room_name, capacity, area, status, discription
   </sql>
-    <select id="select" resultMap="BaseResultMap" >
+    <select id="select" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from m_room
     </select>
+
+
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from m_room
     where id = #{id,jdbcType=BIGINT}
@@ -112,4 +116,19 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <resultMap id="RoomAble" type="java.util.HashMap">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="room_num" property="roomNum" jdbcType="VARCHAR"/>
+        <result column="room_name" property="roomName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--    通过status = 0 查询可用的会议室房间id and name-->
+    <select id="selectRoomAble" resultMap="RoomAble">
+        select m_room.id,m_room.room_num,m_room.room_name
+        from m_room
+        where m_room.status = 0
+    </select>
+
+
 </mapper>

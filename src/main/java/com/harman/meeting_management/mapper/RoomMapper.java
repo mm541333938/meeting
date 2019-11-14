@@ -5,6 +5,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface RoomMapper {
@@ -15,6 +16,8 @@ public interface RoomMapper {
     int insertSelective(Room record) throws DataAccessException;
 
     List<Room> select();
+
+    List<Map<String,Object>> selectRoomAble();
 
     int updateByPrimaryKeySelective(Room record);
 

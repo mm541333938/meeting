@@ -184,6 +184,9 @@
     * url: /admin/deleteRoom
     * method: delete
     * param: roomId
+    
+### 会议预约相关
+
 
     
 ## 会议室列表显示
