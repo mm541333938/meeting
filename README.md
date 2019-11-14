@@ -171,27 +171,113 @@
     * url: /admin/addRoom
     * method: get
     * param: roomNum, roomName, capacity, area, discription
+* req:
+    * ```
+      success:
+            {
+               "msg": "添加成功",
+               "code": 200
+            }
+      fail:
+            {
+               "msg": "添加失败",
+               "code": 210
+            }
+      ```
 * 所有会议室房间信息:req:
     * url: /roomAll
     * method: get
+* res:
+    * ```
+      success:
+      {
+          "msg": [
+              {
+                  "id": 3,
+                  "roomNum": "101",
+                  "roomName": "会议室1",
+                  "capacity": 8,
+                  "area": 40.00,
+                  "status": 0,
+                  "discription": ""
+              },
+              {
+                  "id": 4,
+                  "roomNum": "102",
+                  "roomName": "会议室2",
+                  "capacity": 8,
+                  "area": 40.00,
+                  "status": 0,
+                  "discription": ""
+              },
+              {
+                  "id": 5,
+                  "roomNum": "103",
+                  "roomName": "会议室3",
+                  "capacity": 8,
+                  "area": 40.00,
+                  "status": 0,
+                  "discription": ""
+              },
+              {
+                  "id": 6,
+                  "roomNum": "104",
+                  "roomName": "会议室4",
+                  "capacity": 8,
+                  "area": 40.00,
+                  "status": 0,
+                  "discription": ""
+              }
+          ],
+          "code": 200
+      }
+      
+      fail:
+      {
+          "msg": "没有数据",
+          "code": 210
+      }
+      ```
+    
    
 * 修改指定会议室信息:req:
     * url: /admin/modifyRoomInfo
     * method: get
     * param: roomId roomName capacity area status discription
-
+* req:
+    * ```
+      success:
+            {
+               "msg": "修改成功",
+               "code": 200
+            }
+      fail:
+            {
+               "msg": "修改失败",
+               "code": 210
+            }
+      ```
 * 删除指定会议室信息: req:
     * url: /admin/deleteRoom
     * method: delete
     * param: roomId
+* req:
+    * ```
+      success:
+            {
+               "msg": "删除成功",
+               "code": 200
+            }
+      fail:
+            {
+               "msg": "删除失败",
+               "code": 210
+            }
+      ```
     
 ### 会议预约相关
+* 
 
-
-    
-## 会议室列表显示
-
-## 查看能预约的会议室
 
 ## 查看会议室设备状况
 

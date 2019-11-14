@@ -1,6 +1,9 @@
 package com.harman.meeting_management.controller;
 
+import com.harman.meeting_management.entity.Department;
+import com.harman.meeting_management.service.DepartmentService;
 import com.harman.meeting_management.service.RoomService;
+import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +20,8 @@ import java.util.Map;
  */
 @RestController
 public class ReservationController {
-
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/reserveMeeting")
     public Map<String, Object> doReserveMeeting(@RequestParam("meetingName") String meetingName,        //会议名字
@@ -26,7 +30,7 @@ public class ReservationController {
                                                 @RequestParam("preEndTime") String preEndTime,          //预计结束时间
                                                 @RequestParam("roomId") Long roomId,
                                                 @RequestParam("discription") String discription,        //会议描述
-                                                @RequestParam("user_id") Long userId) {//通过部门来查询部门下的员工对应的userId
+                                                @RequestParam("uId") Long userId) {//通过部门来查询部门下的员工对应的userId
 
         Map<String, Object> map = new HashMap<>();
 
@@ -37,6 +41,7 @@ public class ReservationController {
     @Autowired
     private RoomService roomService;
 
+    //返回空闲可用的会议室房间信息
     @GetMapping("/getRoomName")//查询可用的会议房间
     public Map<String, Object> getRoomId() {
         Map<String, Object> map = new HashMap<>();
@@ -47,6 +52,23 @@ public class ReservationController {
         } else {
             map.put("code", 200);
             map.put("msg", roomInfoAble);
+        }
+        return map;
+    }
+
+
+    //通过下拉按钮，来传过来对应的department_id，从而查询对应部门下的人
+    @GetMapping("/getPersonName")
+    public Map<String, Object> getPersonName(@RequestParam("department_id") Long departmentId) {
+        Map<String, Object> map = new HashMap<>();
+        //得到对应部门内的员工姓名 和column id 信息
+        List<Map<String, Object>> InfoList = userService.findByDepartmentId(departmentId);
+        if (InfoList == null || InfoList.size() == 0) {
+            map.put("code", 210);
+            map.put("msg", "没有信息");
+        } else {
+            map.put("code", 200);
+            map.put("msg", InfoList);
         }
         return map;
     }

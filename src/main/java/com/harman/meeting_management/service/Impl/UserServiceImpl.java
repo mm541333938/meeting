@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author L.Willian
  * @date 11/7/2019 11:30 AM
@@ -30,5 +33,10 @@ public class UserServiceImpl implements UserService {
 
     public int modifyPre(User user) {
         return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public List<Map<String, Object>> findByDepartmentId(Long departmentId) {
+        return userMapper.selectByDepartmentId(departmentId);
     }
 }

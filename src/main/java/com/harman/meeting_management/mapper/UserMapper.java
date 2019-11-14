@@ -4,6 +4,9 @@ import com.harman.meeting_management.entity.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
@@ -11,6 +14,8 @@ public interface UserMapper {
     int insert(User record) throws DataAccessException;
 
     int insertSelective(User record) throws DataAccessException;
+
+    List<Map<String, Object>> selectByDepartmentId(Long departmentId);
 
     User selectByPrimaryKey(Long id);
 
