@@ -25,4 +25,8 @@ public class RoomServiceImpl implements RoomService {
     public List<Room> findAll() {
         return roomMapper.select();
     }
+
+    public int modifyRoomInfo(Room roomDto) {
+        return roomMapper.updateByPrimaryKeySelective(roomDto);
+    }
 }

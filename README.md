@@ -180,7 +180,10 @@
     * method: get
     * param: roomId roomName capacity area status discription
 
-
+* 删除指定会议室信息: req:
+    * url: /admin/deleteRoom
+    * method: delete
+    * param: roomId
 
     
 ## 会议室列表显示

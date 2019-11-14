@@ -4,6 +4,7 @@ import com.harman.meeting_management.entity.Room;
 import com.harman.meeting_management.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,9 +83,36 @@ public class AdminRoomController {
                                             @RequestParam("status") Integer status,
                                             @RequestParam("discription") String discription) {
         Map<String, Object> map = new HashMap<>();
+        Room roomDto = new Room();
+        roomDto.setId(roomId);
+        roomDto.setRoomName(roomName);
+        roomDto.setCapacity(personNum);
+        roomDto.setArea(area);
+        roomDto.setStatus(status);
+        roomDto.setDiscription(discription);
 
-
+        int i = roomService.modifyRoomInfo(roomDto);
+        if (i == 1) {
+            map.put("code", 200);
+            map.put("msg", "修改成功");
+        } else {
+            map.put("code", 210);
+            map.put("msg", "修改失败");
+        }
         return map;
     }
 
+    @DeleteMapping("/admin/deleteRoom")
+    public Map<String, Object> doDeleteRoom(@RequestParam("roomId") Long roomId) {
+        Map<String, Object> map = new HashMap<>();
+        int i = roomService.deleteByRoomId(roomId);
+        if (i == 1) {
+            map.put("code", 200);
+            map.put("msg", "删除成功");
+        } else {
+            map.put("code", 210);
+            map.put("msg", "删除失败");
+        }
+        return map;
+    }
 }

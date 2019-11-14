@@ -20,6 +20,27 @@ public interface RoomService {
      */
     public int addRoom(Room roomDto);
 
+    /**
+     * 查看所有房间信息
+     *
+     * @return
+     */
     public List<Room> findAll();
+
+    /**
+     * 修改对应的房间信息
+     *
+     * @param roomDto
+     * @return
+     */
+    public int modifyRoomInfo(Room roomDto);
+
+    /**
+     * 删除对应的房间信息
+     *
+     * @param roomId
+     * @return
+     */
+    public int deleteByRoomId(Long roomId);
 
 }
