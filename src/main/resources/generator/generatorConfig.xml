@@ -12,7 +12,8 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1/meeting" userId="root"
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1/meeting"
+                        userId="root"
                         password="root">
         </jdbcConnection>
         <javaTypeResolver>
@@ -34,10 +35,12 @@
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
 
-        <table tableName="m_room" domainObjectName="Room" enableCountByExample="false"
+        <table tableName="m_meeting" domainObjectName="Meeting" enableCountByExample="false"
                enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="description" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="canceled_reason" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
 
     </context>
 </generatorConfiguration>

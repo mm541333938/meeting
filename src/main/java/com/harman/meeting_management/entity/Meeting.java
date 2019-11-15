@@ -1,9 +1,8 @@
 package com.harman.meeting_management.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Meeting implements Serializable {
+public class Meeting {
     private Long id;
 
     private String meetingName;
@@ -18,7 +17,13 @@ public class Meeting implements Serializable {
 
     private Date canceledTime;
 
+    private String description;
+
     private Integer status;
+
+    private String canceledReason;
+
+    private Integer prePersonNum;
 
     public Long getId() {
         return id;
@@ -76,11 +81,35 @@ public class Meeting implements Serializable {
         this.canceledTime = canceledTime;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getCanceledReason() {
+        return canceledReason;
+    }
+
+    public void setCanceledReason(String canceledReason) {
+        this.canceledReason = canceledReason == null ? null : canceledReason.trim();
+    }
+
+    public Integer getPrePersonNum() {
+        return prePersonNum;
+    }
+
+    public void setPrePersonNum(Integer prePersonNum) {
+        this.prePersonNum = prePersonNum;
     }
 }

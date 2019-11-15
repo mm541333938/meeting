@@ -1,7 +1,6 @@
 package com.harman.meeting_management.controller;
 
-import com.harman.meeting_management.entity.Department;
-import com.harman.meeting_management.service.DepartmentService;
+import com.harman.meeting_management.entity.Meeting;
 import com.harman.meeting_management.service.RoomService;
 import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,16 @@ public class ReservationController {
                                                 @RequestParam("uId") Long userId) {//通过部门来查询部门下的员工对应的userId
 
         Map<String, Object> map = new HashMap<>();
-
+        Meeting meetingDto = new Meeting();
+        meetingDto.setMeetingName(meetingName);
+        meetingDto.setPrePersonNum(personNum);
+//        meetingDto.setStartTime(preStarTime);
+//        meetingDto.setEndTime(preEndTime);
+        meetingDto.setRoomId(roomId);
+        meetingDto.setDescription(discription);
+       /* meetingDto.setReserveTime();//获取当前时间
+        meetingDto.
+*/
 
         return map;
     }
