@@ -1,6 +1,9 @@
 package com.harman.meeting_management.controller;
 
+import com.harman.meeting_management.common.HttpUtil;
 import com.harman.meeting_management.entity.Meeting;
+import com.harman.meeting_management.service.MeetingRUserService;
+import com.harman.meeting_management.service.MeetingService;
 import com.harman.meeting_management.service.RoomService;
 import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,30 +23,48 @@ import java.util.Map;
  */
 @RestController
 public class ReservationController {
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MeetingService meetingService;
+
+    @Autowired
+    private MeetingRUserService meetingRUserService;
 
     @PostMapping("/reserveMeeting")
     public Map<String, Object> doReserveMeeting(@RequestParam("meetingName") String meetingName,        //会议名字
                                                 @RequestParam("reservePersonNum") Integer personNum,    //预计人数
-                                                @RequestParam("preStarTime") String preStarTime,        //预计开始时间
-                                                @RequestParam("preEndTime") String preEndTime,          //预计结束时间
+                                                @RequestParam("preStarTime") Date preStarTime,        //预计开始时间
+                                                @RequestParam("preEndTime") Date preEndTime,          //预计结束时间
                                                 @RequestParam("roomId") Long roomId,
                                                 @RequestParam("discription") String discription,        //会议描述
-                                                @RequestParam("uId") Long userId) {//通过部门来查询部门下的员工对应的userId
+                                                @RequestParam("uIds") String[] userIds) {//通过部门来查询部门下的员工对应的userId
 
         Map<String, Object> map = new HashMap<>();
         Meeting meetingDto = new Meeting();
         meetingDto.setMeetingName(meetingName);
         meetingDto.setPrePersonNum(personNum);
-//        meetingDto.setStartTime(preStarTime);
-//        meetingDto.setEndTime(preEndTime);
+        meetingDto.setStartTime(preStarTime);
+        meetingDto.setEndTime(preEndTime);
         meetingDto.setRoomId(roomId);
         meetingDto.setDescription(discription);
-       /* meetingDto.setReserveTime();//获取当前时间
-        meetingDto.
-*/
-
+        meetingDto.setReserveTime(new Date());//获取当前时间
+        meetingDto.setDescription(discription);
+        int i = meetingService.addMeeting(meetingDto);//插入数据
+        Long currentDataId = meetingDto.getId();//取出刚插入的数据的id
+        if (i == 1 && (currentDataId != null || currentDataId != 0)) {
+            //执行往manytomany表里插入数据
+            int num = meetingRUserService.addMeetingPerson(currentDataId, userIds);
+            if (num > 0) {
+                map.put("code", 200);
+                map.put("msg", "预约成功");
+            } else {
+                map.put("code", 210);
+                map.put("msg", "预约失败");
+            }
+        }
         return map;
     }
 

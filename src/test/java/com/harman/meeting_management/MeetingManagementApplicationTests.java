@@ -2,6 +2,7 @@ package com.harman.meeting_management;
 
 import com.harman.meeting_management.entity.Meeting;
 import com.harman.meeting_management.mapper.MeetingMapper;
+import com.harman.meeting_management.mapper.MeetingRUserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,19 +10,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class MeetingManagementApplicationTests {
 
-    @Autowired
+    /*@Autowired
     private MeetingMapper mapper;
 
-   /* @Test
+    @Test
     void contextLoads() {
-    }*/
+    }
 
     @Test
     public void insertMeeting() {
         Meeting meetingDto = new Meeting();
         meetingDto.setRoomId(3l);
-
         int i = mapper.insertSelective(meetingDto);
+        System.out.println(meetingDto.getId());
+    }*/
+
+    @Autowired
+    private MeetingRUserMapper meetingRUserMapper;
+
+    @Test
+    public void insertTest() {
+        int i = meetingRUserMapper.insertArrUserId(2l, new String[]{"1", "2", "3"});
         System.out.println(i);
     }
 

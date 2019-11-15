@@ -68,4 +68,13 @@
       user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <insert id="insertArrUserId" parameterType="java.lang.Object">
+    insert into meetingruser (meeting_id, user_id)
+    values
+    <foreach collection ="uIds" item="userId" index= "index" separator =",">
+      (#{meetingId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
 </mapper>
