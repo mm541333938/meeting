@@ -104,11 +104,24 @@ public class ReservationController {
     }
 
     //预约退订
-    @DeleteMapping("canceledMeeting")
-    public Map<String, Object> doCanceledMeeting() {
+    @PostMapping("canceledMeeting")
+    public Map<String, Object> doCanceledMeeting(@RequestParam("meeting_id") Long meetingId,
+                                                 @RequestParam("reason") String reason) {
         Map<String, Object> map = new HashMap<>();
-        
-
+        Meeting meetingDto = new Meeting();
+        meetingDto.setId(meetingId);//取消会议的id
+        meetingDto.setCanceledReason(reason);//取消会议的原因
+        meetingDto.setStatus(-1);// -1 为取消的会议，0 预约的会议，1 已经开始或开过的会议
+        meetingDto.setCanceledTime(new Date());//取消会议的时间，获取当前时间
+        int i = meetingService.cancelMeeting(meetingDto);
+        if (i == 1) {
+            //取消成功
+            map.put("code", 200);
+            map.put("msg", "取消成功");
+        } else {
+            map.put("code", 210);
+            map.put("msg", "取消失败请联系管理员");
+        }
         return map;
     }
 }

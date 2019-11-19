@@ -19,4 +19,8 @@ public class MeetingServiceImpl implements MeetingService {
     public int addMeeting(Meeting meetingDto) throws DataAccessException {
         return meetingMapper.insertSelective(meetingDto);
     }
+
+    public int cancelMeeting(Meeting meetingDto) {
+        return meetingMapper.updateByPrimaryKeySelective(meetingDto);
+    }
 }

@@ -8,5 +8,20 @@ import com.harman.meeting_management.entity.Meeting;
  */
 public interface MeetingService {
 
+    /**
+     * 预约会议
+     *
+     * @param meetingDto
+     * @return
+     */
     public int addMeeting(Meeting meetingDto);
+
+    /**
+     * 取消会议预约
+     *
+     * @param meetingDto
+     * @return
+     */
+    public int cancelMeeting(Meeting meetingDto);
+
 }
