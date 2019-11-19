@@ -103,7 +103,7 @@ public class ReservationController {
         return map;
     }
 
-    //预约退订
+    //预约会议的退订
     @PostMapping("canceledMeeting")
     public Map<String, Object> doCanceledMeeting(@RequestParam("meeting_id") Long meetingId,
                                                  @RequestParam("reason") String reason) {
