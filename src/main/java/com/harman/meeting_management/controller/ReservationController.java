@@ -1,16 +1,12 @@
 package com.harman.meeting_management.controller;
 
-import com.harman.meeting_management.common.HttpUtil;
 import com.harman.meeting_management.entity.Meeting;
 import com.harman.meeting_management.service.MeetingRUserService;
 import com.harman.meeting_management.service.MeetingService;
 import com.harman.meeting_management.service.RoomService;
 import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -33,6 +29,7 @@ public class ReservationController {
     @Autowired
     private MeetingRUserService meetingRUserService;
 
+    //进行会议预约，并且根据部门来选择参加会议的人
     @PostMapping("/reserveMeeting")
     public Map<String, Object> doReserveMeeting(@RequestParam("meetingName") String meetingName,        //会议名字
                                                 @RequestParam("reservePersonNum") Integer personNum,    //预计人数
@@ -41,8 +38,9 @@ public class ReservationController {
                                                 @RequestParam("roomId") Long roomId,
                                                 @RequestParam("discription") String discription,        //会议描述
                                                 @RequestParam("uIds") String[] userIds) {//通过部门来查询部门下的员工对应的userId
-
+        //创建map作为返回值
         Map<String, Object> map = new HashMap<>();
+        //定义一个meetingDto 为即将插入得数据进行封装
         Meeting meetingDto = new Meeting();
         meetingDto.setMeetingName(meetingName);
         meetingDto.setPrePersonNum(personNum);
@@ -53,7 +51,7 @@ public class ReservationController {
         meetingDto.setReserveTime(new Date());//获取当前时间
         meetingDto.setDescription(discription);
         int i = meetingService.addMeeting(meetingDto);//插入数据
-        Long currentDataId = meetingDto.getId();//取出刚插入的数据的id
+        Long currentDataId = meetingDto.getId();//取得刚插入的数据的id
         if (i == 1 && (currentDataId != null || currentDataId != 0)) {
             //执行往manytomany表里插入数据
             int num = meetingRUserService.addMeetingPerson(currentDataId, userIds);
@@ -74,8 +72,11 @@ public class ReservationController {
     //返回空闲可用的会议室房间信息
     @GetMapping("/getRoomName")//查询可用的会议房间
     public Map<String, Object> getRoomId() {
+        // 声明返回值对象map
         Map<String, Object> map = new HashMap<>();
+        //查询所有空闲房间status = 0的房间信息
         List<Map<String, Object>> roomInfoAble = roomService.findRoomInfoAble();
+        // 如果list 为null 或者 大小 是 0 ，代表没查到对应的数据
         if (roomInfoAble == null || roomInfoAble.size() == 0) {
             map.put("code", 210);
             map.put("msg", "没有可用房间");
@@ -85,7 +86,6 @@ public class ReservationController {
         }
         return map;
     }
-
 
     //通过下拉按钮，来传过来对应的department_id，从而查询对应部门下的人
     @GetMapping("/getPersonName")
@@ -103,4 +103,12 @@ public class ReservationController {
         return map;
     }
 
+    //预约退订
+    @DeleteMapping("canceledMeeting")
+    public Map<String, Object> doCanceledMeeting() {
+        Map<String, Object> map = new HashMap<>();
+        
+
+        return map;
+    }
 }

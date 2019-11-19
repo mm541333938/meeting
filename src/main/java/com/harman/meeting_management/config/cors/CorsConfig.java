@@ -1,6 +1,7 @@
 package com.harman.meeting_management.config.cors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -13,10 +14,20 @@ import javax.servlet.ServletRequest;
 /**
  * 跨域请求处理 CORS
  */
-@Configuration
+//@Configuration
 public class CorsConfig {
-    @Autowired
-    private ServletRequest request;
+//    @Autowired
+//    private ServletRequest request;
+//
+//    @Value("${CROS_MAPPING}")
+//    private String mapping;
+//
+//    @Value("${CROS_ALLOWED_ORIGINS}")
+//    private String[] allowedOrigins;
+//
+//    @Value("${CROS_ALLOWED_METHOD}")
+//    private String[] allowedMethods;
+
     private CorsConfiguration buildConfig() {
 
         CorsConfiguration corsConfiguration = new CorsConfiguration();

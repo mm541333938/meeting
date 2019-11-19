@@ -49,7 +49,7 @@ public class AdminDepartmentController {
         return map;
     }
 
-
+    //管理员修改部门信息
     @GetMapping("/admin/modifyDepartment")
     public Map<String, Object> doModifyDepartment(@RequestParam("departName") String departName,
                                                   @RequestParam("department_id") Long id) {
@@ -57,6 +57,7 @@ public class AdminDepartmentController {
         Department department = new Department();
         department.setId(id);
         department.setName(departName);
+        //进行修改部门信息
         int i = departmentService.modifyDepartment(department);
         if (i == 1) {
             map.put("code", 200);
@@ -68,9 +69,11 @@ public class AdminDepartmentController {
         return map;
     }
 
+    //管理员删除部门
     @DeleteMapping("/admin/deleteDepartment")
     public Map<String, Object> doDeleteDepartment(@RequestParam("department_id") Long id) {
         Map<String, Object> map = new HashMap<>();
+        //进行删除
         int i = departmentService.deleteById(id);
         if (i == 1) {
             map.put("code", 200);
@@ -82,9 +85,11 @@ public class AdminDepartmentController {
         return map;
     }
 
+    //得到部门数据
     @GetMapping("/department")
     public Map<String, Object> getListDepartment() {
         Map<String, Object> map = new HashMap<>();
+        //取得部门信息
         List<Department> all = departmentService.findAll();
         if (all.size() != 0 || all != null) {
             map.put("code", 200);

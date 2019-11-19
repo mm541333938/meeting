@@ -25,6 +25,7 @@ public class AdminRoomController {
     @Autowired
     private RoomService roomService;
 
+    // 管理员添加会议室
     @GetMapping("/admin/addRoom")
     public Map<String, Object> doAddRoom(@RequestParam("roomNum") String roomNum,
                                          @RequestParam("roomName") String roomName,
@@ -39,6 +40,7 @@ public class AdminRoomController {
         roomDto.setArea(area);
         roomDto.setDiscription(discription);
         try {
+            // 添加一条会议室
             int i = roomService.addRoom(roomDto);
             if (i == 1) {
                 map.put("code", 200);
@@ -60,10 +62,11 @@ public class AdminRoomController {
         return map;
     }
 
-
+    // 得到所有会议室房间信息
     @GetMapping("/roomAll")
     public Map<String, Object> doFindAllRoom() {
         Map<String, Object> map = new HashMap<>();
+        //取得会议室房间信息数据
         List<Room> roomList = roomService.findAll();
         if (roomList == null || roomList.size() == 0) {
             map.put("code", 210);
@@ -75,6 +78,7 @@ public class AdminRoomController {
         return map;
     }
 
+    //管理员修改会议室房间信息
     @GetMapping("/admin/modifyRoomInfo")
     public Map<String, Object> doModifyRoom(@RequestParam("roomId") Long roomId,
                                             @RequestParam("roomName") String roomName,
@@ -90,7 +94,7 @@ public class AdminRoomController {
         roomDto.setArea(area);
         roomDto.setStatus(status);
         roomDto.setDiscription(discription);
-
+        // 进行房间信息修改
         int i = roomService.modifyRoomInfo(roomDto);
         if (i == 1) {
             map.put("code", 200);
@@ -102,9 +106,11 @@ public class AdminRoomController {
         return map;
     }
 
+    //管理员删除指定房间
     @DeleteMapping("/admin/deleteRoom")
     public Map<String, Object> doDeleteRoom(@RequestParam("roomId") Long roomId) {
         Map<String, Object> map = new HashMap<>();
+        // 进行删除
         int i = roomService.deleteByRoomId(roomId);
         if (i == 1) {
             map.put("code", 200);
