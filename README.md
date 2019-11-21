@@ -276,7 +276,55 @@
       ```
     
 ### 会议预约相关
-* 
+* 会议室预约api: req:
+    * url: /reserveMeeting
+    * method: post
+    * param: meetingName, reservePersonNum preStarTime  preEndTime roomId discription uIds
+* req:
+    * ```
+      success:
+            
+      fail:
+            
+      ```
+      
+* 空闲可用的会议室房间信息api: req:
+    * url: /getRoomName
+    * method: get
+    * param: 
+* req:
+    * ```
+      success:
+            
+      fail:
+            
+      ```
+      
+* 通过下拉按钮，来传过来对应的department_id，从而查询对应部门下的人api: req:
+    * url: /getPersonName
+    * method: get
+    * param: department_id
+* req:
+    * ```
+      success:
+            
+      fail:
+            
+      ```
+      
+* 预约会议的退订api: req:
+    * url: /canceledMeeting
+    * method: post
+    * param: meeting_id reason
+* req:
+    * ```
+      success:
+            
+      fail:
+            
+      ```
+      
+
 
 
 ## 查看会议室设备状况
