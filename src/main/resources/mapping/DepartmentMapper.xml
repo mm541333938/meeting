@@ -47,6 +47,10 @@
                 #{name,jdbcType=VARCHAR},
             </if>
         </trim>
+
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            select LAST_INSERT_ID()
+        </selectKey>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Department">
         update department
