@@ -64,7 +64,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             for (Department department : departmentDtoList) {
                 //将部门数据依次放入缓存当中去，key：部门id；value：对应的部门信息
                 redisTemplate.boundHashOps(key).put(department.getId(), department);
-                LOGGER.info("部门信息数据：findAll -> 从数据库中读取放到缓存中");
+                LOGGER.info("部门信息数据：findAll -> 从数据库中读取放到缓存中" + department.getId() + " -> " + department.getName());
             }
         } else {
             LOGGER.info("部门信息数据：findAll -> 从缓存中读取");
