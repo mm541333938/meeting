@@ -29,7 +29,7 @@
     insert into department (id, name)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Department">
+    <insert id="insertSelective" parameterType="com.harman.meeting_management.entity.Department" useGeneratedKeys="true" keyProperty="id">
         insert into department
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -48,9 +48,6 @@
             </if>
         </trim>
 
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-            select LAST_INSERT_ID()
-        </selectKey>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.harman.meeting_management.entity.Department">
         update department

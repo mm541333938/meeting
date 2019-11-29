@@ -30,7 +30,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Transactional //事件的完整性约束
     public int addDepartment(Department department) throws DataAccessException {
-        int flag = departmentMapper.insert(department);
+        int flag = departmentMapper.insertSelective(department);
         //得到刚刚插入的数据的id
         Long currentId = department.getId();
         //根据刚插入数据的id得到对应的数据，并存到缓存中去
@@ -46,15 +46,38 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         return flag;
     }
-
+    @Transactional //事件的完整性约束
     public int modifyDepartment(Department department) {
-        return departmentMapper.updateByPrimaryKeySelective(department);
+        int flag = departmentMapper.updateByPrimaryKeySelective(department);
+        //得到刚刚修改的数据的id
+        Long currentId = department.getId();
+        Department departmentById = departmentMapper.selectByPrimaryKey(currentId);
+        if (flag == 1) {
+            //说明修改成功
+            //更新redis中对应的数据
+            redisTemplate.boundHashOps(key).put(currentId, departmentById);
+            LOGGER.info("把更新的数据更新进缓存中" + departmentById.getId() + " -> " + departmentById.getName());
+        } else {
+            LOGGER.info("更新没有成功");
+            flag = 0;
+        }
+        return flag;
     }
 
     public int deleteById(Long id) {
-        return departmentMapper.deleteByPrimaryKey(id);
+        int flag = departmentMapper.deleteByPrimaryKey(id);
+        if (flag == 1) {
+            //说明删除成功
+            //删除缓存中对应的数据
+            redisTemplate.boundHashOps(key).delete(id);
+            LOGGER.info("删除数据成功"+id);
+        } else {
+            flag = 0;
+            LOGGER.info("删除失败");
+        }
+        return flag;
     }
-
+    @Transactional //事件的完整性约束
     public List<Department> findAll() {
         List<Department> departmentDtoList = redisTemplate.boundHashOps(key).values();
         if (departmentDtoList == null || departmentDtoList.size() == 0) {
