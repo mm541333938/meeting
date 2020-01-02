@@ -51,4 +51,12 @@ public interface RoomService {
      */
     public List<Map<String, Object>> findRoomInfoAble();
 
+    /**
+     * 通过id得到对应房间的信息
+     *
+     * @param roomId
+     * @return
+     */
+    Room getRoomById(Long roomId);
+
 }

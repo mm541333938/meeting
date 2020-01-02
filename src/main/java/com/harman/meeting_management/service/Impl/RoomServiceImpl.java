@@ -38,4 +38,9 @@ public class RoomServiceImpl implements RoomService {
     public List<Map<String, Object>> findRoomInfoAble() {
         return roomMapper.selectRoomAble();
     }
+
+    @Override
+    public Room getRoomById(Long roomId) {
+        return null;
+    }
 }
