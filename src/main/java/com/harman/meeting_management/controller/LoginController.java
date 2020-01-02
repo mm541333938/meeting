@@ -1,6 +1,6 @@
 package com.harman.meeting_management.controller;
 
-import com.harman.meeting_management.common.HttpUtil;
+import com.harman.meeting_management.common.util.HttpUtil;
 import com.harman.meeting_management.entity.Admin;
 import com.harman.meeting_management.entity.User;
 import com.harman.meeting_management.service.AdminService;

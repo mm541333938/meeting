@@ -1,4 +1,4 @@
-package com.harman.meeting_management.common;
+package com.harman.meeting_management.common.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

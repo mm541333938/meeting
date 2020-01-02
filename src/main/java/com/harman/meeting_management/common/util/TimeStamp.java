@@ -1,4 +1,4 @@
-package com.harman.meeting_management.common;
+package com.harman.meeting_management.common.util;
 
 /**
  * @author L.Willian

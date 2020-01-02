@@ -1,4 +1,4 @@
-package com.harman.meeting_management.common;
+package com.harman.meeting_management.common.util;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
