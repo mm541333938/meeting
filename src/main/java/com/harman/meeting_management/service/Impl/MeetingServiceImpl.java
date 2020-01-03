@@ -1,5 +1,6 @@
 package com.harman.meeting_management.service.Impl;
 
+import com.harman.meeting_management.dto.CancelMeetingResult;
 import com.harman.meeting_management.entity.Meeting;
 import com.harman.meeting_management.mapper.MeetingMapper;
 import com.harman.meeting_management.mapper.UserMapper;
@@ -30,28 +31,32 @@ public class MeetingServiceImpl implements MeetingService {
         return meetingMapper.updateByPrimaryKeySelective(meetingDto);
     }
 
+    //todo
     @Override
-    public List<Meeting> searchMeeting(String meetingName, String roomName, String reserverName, String reserveFromDate, String reserveToDate, String meetingFromDate, String meetingToDate) {
+    public List<Meeting> searchMeeting(Meeting meetingDto) {
+        return meetingMapper.selectSelective(meetingDto);
+    }
+
+    @Override
+    public Meeting getMeetingDetailsByMeetingId(Long mid) {
+        return meetingMapper.selectByPrimaryKey(mid);
+    }
+
+    @Override
+    public List<CancelMeetingResult> getCanceledMeeting(Long uId) {
+
         return null;
     }
 
     @Override
-    public Meeting getMeetingDetailsByMeetingId(long mid) {
+    public List<Meeting> getMeeting7Days(Long uId) {
         return null;
     }
 
     @Override
-    public List<Meeting> getCanceledMeeting(int uId) {
+    public List<Meeting> getMyMeeting(Long uId) {
         return null;
     }
 
-    @Override
-    public List<Meeting> getMeeting7Days(int uId) {
-        return null;
-    }
 
-    @Override
-    public List<Meeting> getMyMeeting(long uId) {
-        return null;
-    }
 }

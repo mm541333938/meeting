@@ -1,5 +1,6 @@
 package com.harman.meeting_management.service;
 
+import com.harman.meeting_management.dto.CancelMeetingResult;
 import com.harman.meeting_management.entity.Meeting;
 
 import java.util.List;
@@ -27,31 +28,31 @@ public interface MeetingService {
     public int cancelMeeting(Meeting meetingDto);
 
     /**
-     * 查询会议
+     * 搜索会议
      */
 
-    List<Meeting> searchMeeting(String meetingName, String roomName, String reserverName, String reserveFromDate, String reserveToDate, String meetingFromDate, String meetingToDate);
+    List<Meeting> searchMeeting(Meeting meetingDto);
 
     /**
      * 会议的详细信息
      */
-    Meeting getMeetingDetailsByMeetingId(long mid);
+    Meeting getMeetingDetailsByMeetingId(Long mid);
 
     /**
-     * 得到取消的会议
+     * 得到当前取消的会议
      */
-    List<Meeting> getCanceledMeeting(int uId);
+    List<CancelMeetingResult> getCanceledMeeting(Long uId);
 
 
     /**
-     * 得到7天的会议信息
+     * 未来7天的会议信息
      */
-    List<Meeting> getMeeting7Days(int uId);
+    List<Meeting> getMeeting7Days(Long uId);
 
     /**
      * 得到我的会议信息
      */
 
-    List<Meeting> getMyMeeting(long uId);
+    List<Meeting> getMyMeeting(Long uId);
 
 }
