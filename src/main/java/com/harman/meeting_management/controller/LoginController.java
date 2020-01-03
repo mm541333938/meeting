@@ -6,6 +6,7 @@ import com.harman.meeting_management.entity.User;
 import com.harman.meeting_management.service.AdminService;
 import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,7 @@ public class LoginController extends HttpUtil {
     private UserService userService;
 
     // normal account sign in
+    @Transactional
     @PostMapping("/login")
     public Map<String, Object> doLogin(@RequestParam("user_name") String userName,
                                        @RequestParam("password") String password) {
