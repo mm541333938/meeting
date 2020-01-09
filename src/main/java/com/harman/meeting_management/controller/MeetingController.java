@@ -43,7 +43,20 @@ public class MeetingController {
         return CommonResult.success(result);
     }
 
-    
+    @ApiOperation(value = "通过用户id得到，当前用户已经取消的会议")
+    public CommonResult<MeetingResultParam> getCanceledMeeting() {
+        return null;
+    }
+
+    @ApiOperation(value = "通过用户id，得到当前用户近7天的会议相关信息")
+    public CommonResult<MeetingResultParam> getMeeting7Days() {
+        return null;
+    }
+
+    @ApiOperation(value = "通过用户id，得到当前用户的会议信息")
+    public CommonResult<MeetingResultParam> getMyMeeting() {
+        return null;
+    }
 
 
 }

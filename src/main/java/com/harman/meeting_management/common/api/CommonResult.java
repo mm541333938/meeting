@@ -72,6 +72,10 @@ public class CommonResult<T> {
         return failed(ResultCode.FAILED);
     }
 
+    public static <T> CommonResult<T> failed(long code , String msg){
+        return new CommonResult<T>(code, msg, null);
+    }
+
     /**
      * 参数验证失败返回结果
      *
