@@ -41,21 +41,25 @@ public class MeetingServiceImpl implements MeetingService {
         return meetingResultDao.selectBySelective(meetingDto);
     }
 
+    //todo
     @Override
     public Meeting getMeetingDetailsByMeetingId(Long mid) {
         return meetingMapper.selectByPrimaryKey(mid);
     }
 
+    //todo
     @Override
     public List<MeetingResultParam> getCanceledMeeting(Long uId) {
         return meetingResultDao.selectCancelMeetingByUid(uId);
     }
 
+    //todo
     @Override
     public List<MeetingResultParam> getMeeting7Days(Long uId) {
         return meetingResultDao.selectCurrent7Days(uId);
     }
 
+    //todo
     @Override
     public List<MeetingResultParam> getMyMeeting(Long uId) {
         return meetingResultDao.selectSelfMeeting(uId);
