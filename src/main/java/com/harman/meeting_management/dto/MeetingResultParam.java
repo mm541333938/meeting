@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class CancelMeetingResult extends Meeting implements Serializable {
+public class MeetingResultParam extends Meeting implements Serializable {
     private String roomName;
     private String userName;
 }

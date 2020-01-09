@@ -1,6 +1,7 @@
 package com.harman.meeting_management.service.Impl;
 
-import com.harman.meeting_management.dto.CancelMeetingResult;
+import com.harman.meeting_management.dao.MeetingResultDao;
+import com.harman.meeting_management.dto.MeetingResultParam;
 import com.harman.meeting_management.entity.Meeting;
 import com.harman.meeting_management.mapper.MeetingMapper;
 import com.harman.meeting_management.mapper.UserMapper;
@@ -23,6 +24,9 @@ public class MeetingServiceImpl implements MeetingService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private MeetingResultDao meetingResultDao;
+
     public int addMeeting(Meeting meetingDto) throws DataAccessException {
         return meetingMapper.insertSelective(meetingDto);
     }
@@ -33,8 +37,8 @@ public class MeetingServiceImpl implements MeetingService {
 
     //todo
     @Override
-    public List<Meeting> searchMeeting(Meeting meetingDto) {
-        return meetingMapper.selectSelective(meetingDto);
+    public List<MeetingResultParam> searchMeeting(Meeting meetingDto) {
+        return meetingResultDao.selectBySelective(meetingDto);
     }
 
     @Override
@@ -43,19 +47,18 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public List<CancelMeetingResult> getCanceledMeeting(Long uId) {
-
-        return null;
+    public List<MeetingResultParam> getCanceledMeeting(Long uId) {
+        return meetingResultDao.selectCancelMeetingByUid(uId);
     }
 
     @Override
-    public List<Meeting> getMeeting7Days(Long uId) {
-        return null;
+    public List<MeetingResultParam> getMeeting7Days(Long uId) {
+        return meetingResultDao.selectCurrent7Days(uId);
     }
 
     @Override
-    public List<Meeting> getMyMeeting(Long uId) {
-        return null;
+    public List<MeetingResultParam> getMyMeeting(Long uId) {
+        return meetingResultDao.selectSelfMeeting(uId);
     }
 
 
