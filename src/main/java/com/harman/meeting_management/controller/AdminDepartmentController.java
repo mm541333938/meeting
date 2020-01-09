@@ -1,5 +1,7 @@
 package com.harman.meeting_management.controller;
 
+import com.harman.meeting_management.common.api.CommonResult;
+import com.harman.meeting_management.common.api.ResultCode;
 import com.harman.meeting_management.entity.Department;
 import com.harman.meeting_management.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +25,29 @@ public class AdminDepartmentController {
 
     // admin add department
     @GetMapping("/admin/addDepartment")
-    public Map<String, Object> doAddDepartment(@RequestParam("departmentName") String departName) {
-        Map<String, Object> map = new HashMap<>();
+    public CommonResult doAddDepartment(@RequestParam("departmentName") String departName) {
+        //Map<String, Object> map = new HashMap<>();
         Department department = new Department();
         department.setName(departName);
         try {
             int i = departmentService.addDepartment(department);
             if (i == 1) {
-                map.put("code", 200);
-                map.put("msg", "添加成功");
+                return CommonResult.success(null);
             } else {
-                map.put("code", 210);
-                map.put("msg", "添加失败");
+                return CommonResult.failed(ResultCode.FAILED2.getCode(), ResultCode.FAILED2.getMessage());
             }
         } catch (DataAccessException e) {
             // catch mybatis throws exception
             Throwable cause = e.getCause();
             // Determine if it is the only constraint
             if (cause instanceof SQLIntegrityConstraintViolationException) {
-                map.put("code", 210);
+               /* map.put("code", 210);
                 map.put("error", cause.getMessage());
-                map.put("msg", "添加失败，部门名称已存在");
+                map.put("msg", "添加失败，部门名称已存在");*/
+                return CommonResult.failed("添加失败，部门名称已存在");
             }
         }
-        return map;
+        return null;
     }
 
     //管理员修改部门信息

@@ -37,25 +37,31 @@ public class MeetingController {
     }
 
     @ApiOperation(value = "查询指定会议的详细信息")
-    @GetMapping("meetingDetails")
+    @GetMapping("/meetingDetails")
     public CommonResult<Meeting> getMeetingDetailsById(@RequestParam("mId") Long mId) {
         Meeting result = meetingService.getMeetingDetailsByMeetingId(mId);
         return CommonResult.success(result);
     }
 
     @ApiOperation(value = "通过用户id得到，当前用户已经取消的会议")
-    public CommonResult<MeetingResultParam> getCanceledMeeting() {
-        return null;
+    @GetMapping("/canceledMeeting")
+    public CommonResult<List<MeetingResultParam>> getCanceledMeeting(@RequestParam("uId") Long uId) {
+        List<MeetingResultParam> result = meetingService.getCanceledMeeting(uId);
+        return CommonResult.success(result);
     }
 
     @ApiOperation(value = "通过用户id，得到当前用户近7天的会议相关信息")
-    public CommonResult<MeetingResultParam> getMeeting7Days() {
-        return null;
+    @GetMapping("/meeting7Days")
+    public CommonResult<List<MeetingResultParam>> getMeeting7Days(@RequestParam("uId") Long uId) {
+        List<MeetingResultParam> result = meetingService.getMeeting7Days(uId);
+        return CommonResult.success(result);
     }
 
     @ApiOperation(value = "通过用户id，得到当前用户的会议信息")
-    public CommonResult<MeetingResultParam> getMyMeeting() {
-        return null;
+    @GetMapping("/selfMeeting")
+    public CommonResult<List<MeetingResultParam>> getMyMeeting(@RequestParam("uId") Long uId) {
+        List<MeetingResultParam> result = meetingService.getMyMeeting(uId);
+        return CommonResult.success(result);
     }
 
 
