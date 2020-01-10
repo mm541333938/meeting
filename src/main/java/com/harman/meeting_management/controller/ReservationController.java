@@ -9,6 +9,7 @@ import com.harman.meeting_management.service.RoomService;
 import com.harman.meeting_management.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -34,8 +35,10 @@ public class ReservationController {
 
     //进行会议预约，并且根据部门来选择参加会议的人
     @ApiOperation(value = "进行会议预约，并且根据部门来选择参加会议的人")
+    @Transactional
     @PostMapping("/reserveMeeting")
-    public CommonResult doReserveMeeting(@RequestParam("meetingName") String meetingName,        //会议名字
+    public CommonResult doReserveMeeting(@RequestParam("uId") Long uId, //哪个用户发起的预约
+                                         @RequestParam("meetingName") String meetingName,        //会议名字
                                          @RequestParam("reservePersonNum") Integer personNum,    //预计人数
                                          @RequestParam("preStarTime") Date preStarTime,        //预计开始时间
                                          @RequestParam("preEndTime") Date preEndTime,          //预计结束时间
@@ -47,6 +50,7 @@ public class ReservationController {
         //定义一个meetingDto 为即将插入得数据进行封装
         Meeting meetingDto = new Meeting();
         meetingDto.setMeetingName(meetingName);
+        meetingDto.setReservationId(uId);
         meetingDto.setPrePersonNum(personNum);
         meetingDto.setStartTime(preStarTime);
         meetingDto.setEndTime(preEndTime);

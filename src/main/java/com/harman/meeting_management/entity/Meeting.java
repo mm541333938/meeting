@@ -9,6 +9,8 @@ public class Meeting {
 
     private Long roomId;
 
+    private Long reservationId;
+
     private Date startTime;
 
     private Date endTime;
@@ -111,5 +113,13 @@ public class Meeting {
 
     public void setPrePersonNum(Integer prePersonNum) {
         this.prePersonNum = prePersonNum;
+    }
+
+    public Long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
     }
 }
