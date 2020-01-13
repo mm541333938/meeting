@@ -1,19 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.harman.meeting_management.dao.MeetingResultDao" >
+<mapper namespace="com.harman.meeting_management.dao.MeetingResultDao">
 
-   <!-- <resultMap id="MeetingResultListMap" type="com.harman.meeting_management.dto.MeetingResultParam" autoMapping="true">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <collection property="attrValueList" columnPrefix="attr_" ofType="com.kilig.mall.nosql.elasticsearch.document.EsProductAttributeValue">
-            <id column="id" property="id" jdbcType="BIGINT"/>
-            <result column="product_attribute_id" property="productAttributeId" jdbcType="BIGINT"/>
-            <result column="value" property="value" jdbcType="VARCHAR"/>
-            <result column="type" property="type"/>
-            <result column="name" property="name"/>
-        </collection>
-    </resultMap>-->
+    <resultMap id="MeetingResultListMap" type="com.harman.meeting_management.dto.MeetingResultParam" autoMapping="true">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="meeting_name" property="meetingName" jdbcType="VARCHAR"/>
+        <result column="room_id" property="roomId" jdbcType="BIGINT"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="reserve_time" property="reserveTime" jdbcType="TIMESTAMP"/>
+        <result column="canceled_time" property="canceledTime" jdbcType="TIMESTAMP"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="canceled_reason" property="canceledReason" jdbcType="VARCHAR"/>
+        <result column="pre_person_num" property="prePersonNum" jdbcType="INTEGER"/>
+        <result column="name" property="userName" jdbcType="VARCHAR"/>
+        <result column="room_name" property="roomName" jdbcType="VARCHAR"/>
 
-<select id="selectSelfMeeting" resultType=""
+    </resultMap>
+    <!--  查询自己的会议信息 -->
+    <select id="selectSelfMeeting" resultMap="MeetingResultListMap" parameterType="java.lang.Long">
+SELECT
+	m.*,
+	u.`name`,
+	r.`room_name`
+FROM
+	m_meeting m,
+	m_user u,
+	m_room r
+WHERE
+	m.`id` IN (
+	SELECT
+		mu.`meeting_id`
+	FROM
+		meetingruser mu
+	WHERE
+	mu.`user_id` =#{uId, jdbcType=INTEGER})
+	AND m.`room_id` = r.`id`
+	AND m.`reservation_id` = u.`id`
+	AND m.STATUS = 0
+	AND m.start_time > now()
+</select>
+    <!--查询当前用户指定7天的会议信息-->
+    <select id="selectCurrent7Days" resultMap="MeetingResultListMap" parameterType="java.lang.Long">
 
+    </select>
+
+    <!--	通过不同条件检索查询-->
+    <select id="selectBySelective" resultMap="MeetingResultListMap"
+            parameterType="com.harman.meeting_management.entity.Meeting">
+
+
+
+    </select>
+
+    <!--	通过用户id 查询用户已经取消的会议信息 -->
+    <select id="selectCancelMeetingByUid" resultMap="MeetingResultListMap" parameterType="java.lang.Long">
+
+    </select>
 
 </mapper>
