@@ -49,5 +49,21 @@ class MeetingManagementApplicationTests {
 
     }
 
+    @Test
+    public void selectCurrent7Days(){
+        List<MeetingResultParam> result = meetingService.getMeeting7Days(1l);
+        System.out.println(result.get(0));
+
+    }
+
+    @Test
+    public void selectCancelMeetingByUid(){
+        List<MeetingResultParam> result = meetingService.getCanceledMeeting(1l);
+        System.out.println(result.get(0));
+    }
+
+
+
+
 
 }

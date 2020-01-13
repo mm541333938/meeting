@@ -20,43 +20,74 @@
     </resultMap>
     <!--  查询自己的会议信息 -->
     <select id="selectSelfMeeting" resultMap="MeetingResultListMap" parameterType="java.lang.Long">
-SELECT
-	m.*,
-	u.`name`,
-	r.`room_name`
-FROM
-	m_meeting m,
-	m_user u,
-	m_room r
-WHERE
-	m.`id` IN (
-	SELECT
-		mu.`meeting_id`
-	FROM
-		meetingruser mu
-	WHERE
-	mu.`user_id` =#{uId, jdbcType=INTEGER})
-	AND m.`room_id` = r.`id`
-	AND m.`reservation_id` = u.`id`
-	AND m.STATUS = 0
-	AND m.start_time > now()
-</select>
+		SELECT
+			m.*,
+			u.`name`,
+			r.`room_name`
+		FROM
+			m_meeting m,
+			m_user u,
+			m_room r
+		WHERE
+			m.`id` IN (
+			SELECT
+				mu.`meeting_id`
+			FROM
+				meetingruser mu
+			WHERE
+			mu.`user_id` =#{uId, jdbcType=INTEGER})
+			AND m.`room_id` = r.`id`
+			AND m.`reservation_id` = u.`id`
+			AND m.STATUS = 0
+			AND m.start_time > now()
+	</select>
+
+
     <!--查询当前用户指定7天的会议信息-->
     <select id="selectCurrent7Days" resultMap="MeetingResultListMap" parameterType="java.lang.Long">
-
-    </select>
+		SELECT
+		m.*,
+		r.`room_name`
+		FROM
+		m_meeting m,
+		m_room r
+		WHERE
+		m.id IN (
+		SELECT
+		meeting_id
+		FROM
+		meetingruser
+		WHERE
+		user_id =#{uId, jdbcType=INTEGER})
+		AND m.`room_id` = r.`id`
+		AND start_time &lt; DATE_ADD(NOW(),INTERVAL 7 DAY) AND start_time >NOW()
+	</select>
 
     <!--	通过不同条件检索查询-->
     <select id="selectBySelective" resultMap="MeetingResultListMap"
             parameterType="com.harman.meeting_management.entity.Meeting">
 
 
-
     </select>
 
     <!--	通过用户id 查询用户已经取消的会议信息 -->
     <select id="selectCancelMeetingByUid" resultMap="MeetingResultListMap" parameterType="java.lang.Long">
-
+		SELECT
+			m.*,
+			r.`room_name`
+		FROM
+			m_meeting m,
+			m_room r
+		WHERE
+			m.id IN (
+			SELECT
+				meeting_id
+			FROM
+				meetingruser
+			WHERE
+			user_id = #{uId, jdbcType=INTEGER})
+			AND m.`room_id` = r.`id`
+			AND m.STATUS =-1
     </select>
 
 </mapper>
