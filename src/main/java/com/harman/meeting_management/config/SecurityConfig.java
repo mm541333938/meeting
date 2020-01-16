@@ -3,8 +3,11 @@ package com.harman.meeting_management.config;
 import com.harman.meeting_management.component.JwtAuthenticationTokenFilter;
 import com.harman.meeting_management.component.RestAuthenticationEntryPoint;
 import com.harman.meeting_management.component.RestfulAccessDeniedHandler;
+import com.harman.meeting_management.dto.UserDetailsDto;
 import com.harman.meeting_management.entity.Admin;
+import com.harman.meeting_management.entity.UserT;
 import com.harman.meeting_management.service.AdminService;
+import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +40,9 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 当用户没有访问权限时的处理器，用于返回JSON格式的处理结果
@@ -117,11 +123,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
         return username -> {
-            Admin admin = adminService.findByName(username);
-            if (admin == null) {
+            UserDetailsDto user = userService.findByName(username);
+            if (user == null) {
                 throw new UsernameNotFoundException("用户不存在");
             }
-            return (UserDetails) admin;
+            return user;
         };
     }
 

@@ -1,6 +1,9 @@
 package com.harman.meeting_management.service;
 
+import com.harman.meeting_management.dto.UserDetailsDto;
+import com.harman.meeting_management.entity.Admin;
 import com.harman.meeting_management.entity.User;
+import com.harman.meeting_management.entity.UserT;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -50,5 +53,12 @@ public interface UserService {
      * @return
      */
     public List<Map<String, Object>> findByDepartmentId(Long departmentId);
+
+    /**
+     * 通过用户名查询
+     * @param userName
+     * @return
+     */
+    UserDetailsDto findByName(String userName);
 
 }

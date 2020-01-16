@@ -1,7 +1,10 @@
 package com.harman.meeting_management.service.Impl;
 
+import com.harman.meeting_management.dto.UserDetailsDto;
 import com.harman.meeting_management.entity.User;
+import com.harman.meeting_management.entity.UserT;
 import com.harman.meeting_management.mapper.UserMapper;
+import com.harman.meeting_management.mapper.UserTMapper;
 import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -18,6 +21,9 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserTMapper userTMapper;
 
     public int addUser(User user) throws DataAccessException {
         return userMapper.insert(user);
@@ -38,5 +44,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Map<String, Object>> findByDepartmentId(Long departmentId) {
         return userMapper.selectByDepartmentId(departmentId);
+    }
+
+    @Override
+    public UserDetailsDto findByName(String userName) {
+        return userTMapper.selectByUsername(userName);
     }
 }

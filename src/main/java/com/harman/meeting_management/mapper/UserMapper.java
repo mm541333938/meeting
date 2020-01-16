@@ -1,6 +1,7 @@
 package com.harman.meeting_management.mapper;
 
 import com.harman.meeting_management.entity.User;
+import com.harman.meeting_management.entity.UserT;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,6 @@ public interface UserMapper {
     User selectByEmail(String email);
 
     User selectByEmployeeId(String employeeId);
+
 
 }

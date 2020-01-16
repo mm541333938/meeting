@@ -1,6 +1,8 @@
 package com.harman.meeting_management.entity;
 
-public class UserRole {
+import java.io.Serializable;
+
+public class UserRole  implements Serializable {
     private Long userId;
 
     private Long roleId;
