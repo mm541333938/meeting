@@ -14,49 +14,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * JwtToken生成的工具类
- * <p>
- * generateToken(UserDetails userDetails):用于根据登录用户信息生成token
- * getUserNameFromToken(String token):从token中获取登录用户的信息
- * validateToken(String token,UserDetails userDetails):判断token是否还有效
- * </p>
- *
  * @author L.Willian
- * @date 2020/1/13
+ * @date 2019/12/3
  */
 @Component
-public class JwtTokenUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
+public class JwtTokenUtilExample {
 
-    //定义常量
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtilExample.class);
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
 
-    //从配置文件获取加密值
-    @Value("$jwt.secret")
-    private String secret;//加密字符
-    @Value("$jwt.expiration")
-    private Long expiration;//过期时间(s)
-
-
-
-
+    @Value("${jwt.secret}")
+    private String secret;
+    @Value("${jwt.expiration}")
+    private Long expiration;
 
     /**
-     * 根据负责生成的jwt的token
+     * 根据负责生成JWT的token
      */
     private String generateToken(Map<String, Object> claims) {
-        return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate()).signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(generateExpirationDate())
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
-
     /**
-     * 从token中获取jwt 中的负载
+     * 从token中获取JWT中的负载
      */
+
     private Claims getClaimsFromToken(String token) {
         Claims claims = null;
         try {
-            claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+            claims = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
         } catch (Exception e) {
             LOGGER.info("JWT格式验证失败:{}", token);
         }
@@ -65,8 +59,6 @@ public class JwtTokenUtil {
 
     /**
      * 生成token的过期时间
-     *
-     * @return
      */
     private Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + expiration * 1000);
@@ -78,7 +70,8 @@ public class JwtTokenUtil {
     public String getUserNameFromToken(String token) {
         String username;
         try {
-            username = getClaimsFromToken(token).getSubject();
+            Claims claims = getClaimsFromToken(token);
+            username = claims.getSubject();
         } catch (Exception e) {
             username = null;
         }
@@ -90,7 +83,6 @@ public class JwtTokenUtil {
      *
      * @param token       客户端传入的token
      * @param userDetails 从数据库中查询出来的用户信息
-     * @return
      */
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = getUserNameFromToken(token);
@@ -99,32 +91,28 @@ public class JwtTokenUtil {
 
     /**
      * 判断token是否已经失效
-     *
-     * @param token
-     * @return
      */
     private boolean isTokenExpired(String token) {
-        return getExpiredDateFromToken(token).before(new Date());
+        Date expiredDate = getExpiredDateFromToken(token);
+        return expiredDate.before(new Date());
     }
 
     /**
      * 从token中获取过期时间
-     *
-     * @param token
-     * @return
      */
     private Date getExpiredDateFromToken(String token) {
-        return getClaimsFromToken(token).getExpiration();
+        Claims claims = getClaimsFromToken(token);
+        return claims.getExpiration();
     }
 
     /**
      * 根据用户信息生成token
      */
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-        map.put(CLAIM_KEY_CREATED, new Date());
-        return generateToken(map);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_CREATED, new Date());
+        return generateToken(claims);
     }
 
     /**

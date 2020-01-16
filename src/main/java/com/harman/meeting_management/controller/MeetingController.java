@@ -50,7 +50,7 @@ public class MeetingController {
         return CommonResult.success(result);
     }
 
-    @ApiOperation(value = "通过用户id，得到当前用户近7天的会议相关信息")
+    @ApiOperation(value = "通过用户id，得到当前用户未来7天的会议相关信息")
     @GetMapping("/meeting7Days")
     public CommonResult<List<MeetingResultParam>> getMeeting7Days(@RequestParam("uId") Long uId) {
         List<MeetingResultParam> result = meetingService.getMeeting7Days(uId);
