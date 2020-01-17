@@ -1,18 +1,22 @@
 package com.harman.meeting_management.controller;
 
+import com.harman.meeting_management.common.api.CommonResult;
 import com.harman.meeting_management.common.util.HttpUtil;
+import com.harman.meeting_management.dto.UserLoginParam;
 import com.harman.meeting_management.entity.Admin;
 import com.harman.meeting_management.entity.User;
+import com.harman.meeting_management.entity.UserT;
 import com.harman.meeting_management.service.AdminService;
 import com.harman.meeting_management.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.HashMap;
@@ -152,6 +156,54 @@ public class UserController extends HttpUtil {
             map.put("msg", "员工号已注册");
         }
         return map;
+    }
+
+
+    @ApiOperation(value = "用户注册")
+    @PostMapping("/ll/register")
+    public CommonResult<UserT> register(@RequestBody UserT userParam) {
+        UserT user = userService.register(userParam);
+        if (user == null) {
+            CommonResult.failed();
+        }
+        return CommonResult.success(user);
+    }
+
+
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
+
+    @ApiOperation(value = "登录之后返回token")
+    @PostMapping("/ll/login")
+    public CommonResult login(@RequestBody UserLoginParam userLoginParam, BindingResult result) {
+        String token = userService.login(userLoginParam.getUsername(), userLoginParam.getPassword());
+        if (token == null) {
+            return CommonResult.validateFailed("用户名或密码错误");
+        }
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(tokenMap);
+    }
+
+    @ApiOperation(value = "刷新token")
+    @GetMapping("/refreshToken")
+    public CommonResult refreshToken(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        String refreshToken = userService.refreshToken(token);
+        if (refreshToken == null) return CommonResult.failed("token已经过期!");
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", refreshToken);
+        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(tokenMap);
+    }
+
+    @ApiOperation(value = "登出功能")
+    @PostMapping("/logout")
+    public CommonResult logout() {
+        return CommonResult.success(null);
     }
 
 }

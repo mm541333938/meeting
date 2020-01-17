@@ -33,13 +33,10 @@ public class JwtTokenUtil {
     private static final String CLAIM_KEY_CREATED = "created";
 
     //从配置文件获取加密值
-    @Value("$jwt.secret")
+    @Value("${jwt.secret}")
     private String secret;//加密字符
-    @Value("$jwt.expiration")
+    @Value("${jwt.expiration}")
     private Long expiration;//过期时间(s)
-
-
-
 
 
     /**

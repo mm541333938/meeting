@@ -56,9 +56,35 @@ public interface UserService {
 
     /**
      * 通过用户名查询
+     *
      * @param userName
      * @return
      */
     UserDetailsDto findByName(String userName);
 
+
+    /**
+     * 用户注册
+     *
+     * @param userParam
+     * @return
+     */
+    UserT register(UserT userParam);
+
+    /**
+     * 登录功能
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    String login(String username, String password);
+
+    /**
+     * 刷新token
+     *
+     * @param oldToken
+     * @return
+     */
+    String refreshToken(String oldToken);
 }

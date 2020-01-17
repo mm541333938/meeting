@@ -16,9 +16,7 @@ public class UserT implements Serializable {
 
     private String phone;
 
-    private Date preTime;
-
-    private String preIp;
+    private Date createTime;
 
     private Long employeeId;
 
@@ -72,22 +70,6 @@ public class UserT implements Serializable {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public Date getPreTime() {
-        return preTime;
-    }
-
-    public void setPreTime(Date preTime) {
-        this.preTime = preTime;
-    }
-
-    public String getPreIp() {
-        return preIp;
-    }
-
-    public void setPreIp(String preIp) {
-        this.preIp = preIp == null ? null : preIp.trim();
-    }
-
     public Long getEmployeeId() {
         return employeeId;
     }
@@ -102,5 +84,13 @@ public class UserT implements Serializable {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

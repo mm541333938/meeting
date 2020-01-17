@@ -17,7 +17,6 @@ import java.util.Map;
  * @author L.Willian
  * @date 2019/12/3
  */
-@Component
 public class JwtTokenUtilExample {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtilExample.class);
