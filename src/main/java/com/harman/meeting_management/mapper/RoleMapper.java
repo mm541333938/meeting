@@ -1,7 +1,9 @@
 package com.harman.meeting_management.mapper;
 
 import com.harman.meeting_management.entity.Role;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RoleMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    Role selectByRoleName(String role_normal);
 }

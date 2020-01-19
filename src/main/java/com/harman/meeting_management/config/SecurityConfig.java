@@ -3,10 +3,6 @@ package com.harman.meeting_management.config;
 import com.harman.meeting_management.component.JwtAuthenticationTokenFilter;
 import com.harman.meeting_management.component.RestAuthenticationEntryPoint;
 import com.harman.meeting_management.component.RestfulAccessDeniedHandler;
-import com.harman.meeting_management.dto.UserDetailsDto;
-import com.harman.meeting_management.entity.Admin;
-import com.harman.meeting_management.entity.UserT;
-import com.harman.meeting_management.service.AdminService;
 import com.harman.meeting_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,14 +15,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.util.List;
 
 /**
  * spring security 配置
@@ -38,8 +29,7 @@ import java.util.List;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private AdminService adminService;
+
 
     @Autowired
     private UserService userService;
@@ -106,7 +96,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-
     /**
      * SpringSecurity定义的用于对密码进行编码及比对的接口，目前使用的是BCryptPasswordEncoder
      */
@@ -118,18 +107,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * SpringSecurity定义的核心接口，用于根据用户名获取用户信息，需要自行实现
      */
-    //todo
-    @Bean
-    public UserDetailsService userDetailsService() {
-        //获取登录用户信息
-        return username -> {
-            UserDetailsDto user = userService.findByName(username);
-            if (user == null) {
-                throw new UsernameNotFoundException("用户不存在");
-            }
-            return user;
-        };
-    }
 
     @Bean
     public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {

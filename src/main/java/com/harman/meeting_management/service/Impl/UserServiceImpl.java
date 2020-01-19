@@ -1,11 +1,14 @@
 package com.harman.meeting_management.service.Impl;
 
 import com.harman.meeting_management.common.util.JwtTokenUtil;
+import com.harman.meeting_management.dao.UserRoleDao;
 import com.harman.meeting_management.dto.UserDetailsDto;
+import com.harman.meeting_management.entity.Role;
 import com.harman.meeting_management.entity.User;
-import com.harman.meeting_management.entity.UserT;
+import com.harman.meeting_management.entity.UserRole;
+import com.harman.meeting_management.mapper.RoleMapper;
 import com.harman.meeting_management.mapper.UserMapper;
-import com.harman.meeting_management.mapper.UserTMapper;
+import com.harman.meeting_management.mapper.UserRoleMapper;
 import com.harman.meeting_management.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,15 +32,25 @@ import java.util.Map;
  * @author L.Willian
  * @date 11/7/2019 11:30 AM
  */
-@Service(value = "userService")
+@Service
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
-
     @Autowired
-    private UserTMapper userTMapper;
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleMapper roleMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+    @Autowired
+    private UserRoleDao userRoleDao;
+
 
     public int addUser(User user) throws DataAccessException {
         return userMapper.insert(user);
@@ -60,32 +74,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetailsDto findByName(String userName) {
-        return userTMapper.selectByUsername(userName);
+    public User getUserByUsername(String username) {
+        User user = userMapper.findByUsername(username);
+        if (user != null) return user;
+        return null;
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
-    public UserT register(UserT userParam) {
+    public User register(User userParam) {
         userParam.setCreateTime(new Date());
         //userParam.setStatus(1);
         //查询是否有相同用户名的用户
-        UserDetailsDto username = userTMapper.selectByUsername(userParam.getUsername());
+        User username = userMapper.findByUsername(userParam.getUsername());
         if (username != null) return null;
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(userParam.getPassword());
         userParam.setPassword(encodePassword);
-        userTMapper.insertSelective(userParam);
+        userMapper.insertSelective(userParam);
+        //查询ROLE_NORMAL id //默认权限
+        Role role = roleMapper.selectByRoleName("ROLE_NORMAL");
+        //添加中间表
+        UserRole userRole = new UserRole();
+        userRole.setUserId(userParam.getId());
+        userRole.setRoleId(role.getId());
+        userRoleMapper.insert(userRole);
         return userParam;
     }
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @Override
     public String login(String username, String password) {
@@ -116,8 +130,24 @@ public class UserServiceImpl implements UserService {
         loginLogMapper.insert(loginLog);*/
     }
 
-
+    @Override
     public String refreshToken(String oldToken) {
         return jwtTokenUtil.refreshToken(oldToken);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //获取用户信息
+        User userInfo = getUserByUsername(username);
+        if (userInfo != null) {
+            List<Role> roleList = getRoleList(userInfo.getId());
+            return new UserDetailsDto(userInfo, roleList);
+        }
+        throw new UsernameNotFoundException("用户不存在");
+    }
+
+    private List<Role> getRoleList(Long userId) {
+        return userRoleDao.getRoleList(userId);
+    }
+
 }

@@ -2,7 +2,6 @@ package com.harman.meeting_management.dto;
 
 import com.harman.meeting_management.entity.Role;
 import com.harman.meeting_management.entity.User;
-import com.harman.meeting_management.entity.UserT;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,35 +16,36 @@ import java.util.List;
  * @author L.Willian
  * @date 2020/1/16
  */
-public class UserDetailsDto extends UserT implements UserDetails {
+public class UserDetailsDto implements UserDetails {
+
+    private User user;
 
     private List<Role> roles;
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
+    public UserDetailsDto(User user, List<Role> roles) {
+        this.user = user;
         this.roles = roles;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        //返回当前用户的权限
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles){
-            authorities.add( new SimpleGrantedAuthority(role.getRoleName()));
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return super.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return super.getUsername();
+        return user.getUsername();
     }
 
     @Override

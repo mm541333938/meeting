@@ -1,9 +1,11 @@
 package com.harman.meeting_management;
 
+import com.harman.meeting_management.dao.UserRoleDao;
 import com.harman.meeting_management.dto.MeetingResultParam;
-import com.harman.meeting_management.entity.Meeting;
-import com.harman.meeting_management.mapper.MeetingMapper;
+import com.harman.meeting_management.dto.UserDetailsDto;
+import com.harman.meeting_management.entity.Role;
 import com.harman.meeting_management.mapper.MeetingRUserMapper;
+import com.harman.meeting_management.mapper.UserMapper;
 import com.harman.meeting_management.service.MeetingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ class MeetingManagementApplicationTests {
     }
 
     @Test
-    public void selectSelfMeeting(){
+    public void selectSelfMeeting() {
 
         List<MeetingResultParam> result = meetingService.getMyMeeting(1l);
         System.out.println(result.get(0));
@@ -50,20 +52,38 @@ class MeetingManagementApplicationTests {
     }
 
     @Test
-    public void selectCurrent7Days(){
+    public void selectCurrent7Days() {
         List<MeetingResultParam> result = meetingService.getMeeting7Days(1l);
         System.out.println(result.get(0));
 
     }
 
     @Test
-    public void selectCancelMeetingByUid(){
+    public void selectCancelMeetingByUid() {
         List<MeetingResultParam> result = meetingService.getCanceledMeeting(1l);
         System.out.println(result.get(0));
     }
 
 
+    @Autowired
+    private UserMapper userMapper;
 
+    @Test
+    public void selectByUsername() {
+        List<UserDetailsDto> admin = userMapper.selectByUsername("admin");
+        System.out.println(admin);
+    }
+
+    @Autowired
+    private UserRoleDao userRoleDao;
+
+    @Test
+    public void getRoleList() {
+        List<Role> roleList = userRoleDao.getRoleList(1l);
+        for (Role r : roleList) {
+            System.out.println(r.toString());
+        }
+    }
 
 
 }

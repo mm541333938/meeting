@@ -1,10 +1,9 @@
 package com.harman.meeting_management.service;
 
 import com.harman.meeting_management.dto.UserDetailsDto;
-import com.harman.meeting_management.entity.Admin;
 import com.harman.meeting_management.entity.User;
-import com.harman.meeting_management.entity.UserT;
-import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -54,13 +53,8 @@ public interface UserService {
      */
     public List<Map<String, Object>> findByDepartmentId(Long departmentId);
 
-    /**
-     * 通过用户名查询
-     *
-     * @param userName
-     * @return
-     */
-    UserDetailsDto findByName(String userName);
+    User getUserByUsername(String username);
+
 
 
     /**
@@ -69,7 +63,8 @@ public interface UserService {
      * @param userParam
      * @return
      */
-    UserT register(UserT userParam);
+    @Transactional  //添加事件
+    User register(User userParam);
 
     /**
      * 登录功能
@@ -87,4 +82,11 @@ public interface UserService {
      * @return
      */
     String refreshToken(String oldToken);
+
+
+
+    /**
+     * 获取用户信息
+     */
+    UserDetails loadUserByUsername(String username);
 }

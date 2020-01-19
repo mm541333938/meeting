@@ -6,21 +6,19 @@ import java.util.Date;
 public class User implements Serializable {
     private Long id;
 
+    private String username;
+
+    private String password;
+
     private String name;
 
     private String email;
 
     private String phone;
 
-    private Date preTime;
+    private Date createTime;
 
-    private String preIp;
-
-    private Integer status;
-
-    private String password;
-
-    private String employeeId;
+    private Long employeeId;
 
     private Long departmentId;
 
@@ -30,6 +28,22 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getName() {
@@ -56,44 +70,12 @@ public class User implements Serializable {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public Date getPreTime() {
-        return preTime;
-    }
-
-    public void setPreTime(Date preTime) {
-        this.preTime = preTime;
-    }
-
-    public String getpreIp() {
-        return preIp;
-    }
-
-    public void setpreIp(String preIp) {
-        this.preIp = preIp == null ? null : preIp.trim();
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public String getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId == null ? null : employeeId.trim();
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Long getDepartmentId() {
@@ -102,5 +84,13 @@ public class User implements Serializable {
 
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

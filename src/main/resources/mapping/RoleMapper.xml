@@ -55,4 +55,11 @@
     set role_name = #{roleName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="selectByRoleName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id,role_name
+    from role
+    where role_name=#{role_normal, jdbcType=VARCHAR}
+  </select>
 </mapper>
